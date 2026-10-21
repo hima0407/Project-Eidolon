@@ -1,7 +1,7 @@
 # PROJECT EIDOLON
 **Advanced Aerospace Sizing & Optimization Portfolio**
 
-Project Eidolon is a computational design study for a next-generation two-seater light aircraft. Engineered strictly from first-principles constraint analysis, the airframe is optimized for peak aerodynamic efficiency, structural mass reduction, and precision propulsion matching.
+Project Eidolon is a computational design study for a two-seater light aircraft. Engineered strictly from first-principles constraint analysis, the airframe is optimized for peak aerodynamic efficiency, structural mass reduction, and precision propulsion matching.
 
 ## Mission Specifications
 | Parameter | Design Target |
