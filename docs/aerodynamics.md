@@ -1,37 +1,48 @@
-Aerodynamic Analysis
+# Aerodynamic Analysis: NACA 63-415
 
-Overview
+**Status:** preliminary numerical analysis; not experimental validation.
 
-This directory documents the aerodynamic development of Project Eidolon, from airfoil evaluation to preliminary three-dimensional wing analysis.
+## Objective
 
-The objective is to establish a reproducible aerodynamic baseline and compare candidate airfoils under consistent operating conditions.
+The current wing study uses the NACA 63-415 section as the working candidate, following earlier consideration of the NACA 23012. The aim is to establish the section and finite-wing behavior under relevant Reynolds-number and operating conditions, then feed defensible aerodynamic inputs into the aircraft-level performance model.
 
-Current Work
+## Available analysis artifacts
 
-NACA 63-415
+The current result package is intended to contain:
 
-The NACA 63-415 candidate has undergone preliminary 2D airfoil analysis and 3D wing analysis using XFLR5.
+- `results/aerodynamics/naca63415/polar2d.txt` — 2D airfoil polar output.
+- `results/aerodynamics/naca63415/polar3d.csv` — exported 3D wing polar.
+- `results/aerodynamics/naca63415/analysis_log.txt` — analysis settings and run notes.
+- `results/aerodynamics/naca63415/polar_graphs.png` — plotted results.
+- `xflr5/naca63415.dat` — airfoil coordinates.
+- `xflr5/projects/main.xfl` — XFLR5 project.
 
-The exported 3D polar is retained alongside the analysis configuration and numerical results.
+Check that these files exist in the working checkout before treating the list as a complete inventory.
 
-Current status: Preliminary analysis completed; validation and comparison remain in progress.
+## Current 3D polar sample
 
-See results/aerodynamics/naca63415/ for the available results.
+The supplied XFLR5 VLM2 CSV reports a freestream speed of 55.6 m/s, approximately 200 km/h. In that dataset, at the sampled angle of attack of 1 degree:
 
-NACA 23012
+- `CL` ≈ 0.3311
+- `CD` ≈ 0.00888
+- sampled `CL/CD` ≈ 37.3
 
-NACA 23012 is the reference airfoil for the planned comparison.
+This is a point from the supplied simulation output, not a validated aircraft cruise L/D. The precise solver setup, Reynolds-number coverage, transition treatment, wing geometry, and polar conventions must be checked against the project file and log before using the numbers in a design calculation.
 
-The comparison will use consistent wing geometry, reference dimensions, atmospheric properties, freestream conditions, and analysis settings wherever applicable.
+## Important limits
 
-Next Milestones
+1. A 2D airfoil polar is not a finite-wing polar.
+2. A finite-wing XFLR5 polar is not automatically the complete aircraft drag polar. Fuselage, canopy, landing gear, cooling, interference, control gaps, and other components may add drag.
+3. A converged VLM2 run is a model result, not experimental validation.
+4. Do not claim a fixed percentage improvement for NACA 63-415 over NACA 23012 until both airfoils are analyzed at matched Reynolds numbers, transition settings, solver settings, and comparable lift conditions.
+5. Do not use the wing polar's drag coefficient directly as the aircraft-level `CD0` in constraint analysis.
+6. The project discussion mentions Reynolds-number sweeps from roughly 1 million to 6 million. The actual coverage and validity must be confirmed from the saved polars, not inferred from the intended plan.
 
-1. Verify Reynolds-number coverage and numerical consistency.
-2. Run or verify the NACA 23012 baseline analysis.
-3. Compare lift, drag, pitching moment, and lift-to-drag ratio.
-4. Investigate mesh and operating-condition sensitivity.
-5. Use the verified aerodynamic data in the aircraft performance model.
+## Next aerodynamic tasks
 
-Methodological Note
-
-XFLR5 predictions are numerical estimates, not experimental measurements. Conclusions about aircraft performance will be made only after accounting for the assumptions and limitations of the analysis methods.
+1. Verify the airfoil coordinate file and section assignment at every relevant wing station.
+2. Run matched 2D polar sweeps for NACA 63-415 and the legacy NACA 23012 over the relevant Reynolds-number range and angle-of-attack range.
+3. Confirm XFLR5 settings and record the geometry, atmosphere, viscosity, transition assumptions, and solver choice.
+4. Check the finite-wing polar for convergence, plausible trends, and sufficient angle-of-attack coverage; investigate any warning or out-of-envelope Reynolds-number conditions.
+5. Export clean CSV data and plot `CL` vs `alpha`, `CD` vs `CL`, `CL/CD` vs `alpha`, and pitching moment vs `alpha` where available.
+6. Establish a defensible bridge from the wing model to aircraft-level drag before updating the aircraft constraint assumptions.

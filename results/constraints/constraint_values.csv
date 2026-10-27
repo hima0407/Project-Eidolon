@@ -1,0 +1,7 @@
+wing_loading_N_m2,stall_limit_N_m2,wing_area_m2,curve,required_TW
+520.000,614.627,14.1442,Cruise: 200 km/h at ~1,500 m,0.090183
+520.000,614.627,14.1442,Maximum speed: 225 km/h at sea level,0.120541
+520.000,614.627,14.1442,Sea-level climb: ROC 3.0 m/s at 32 m/s,0.161280
+520.000,614.627,14.1442,Service ceiling: 3,000 m, ROC 0.508 m/s,0.079569
+520.000,614.627,14.1442,governing_minimum,0.161280
+520.000,614.627,14.1442,governing_plus_5%_margin,0.169344
