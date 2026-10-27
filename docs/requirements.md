@@ -22,9 +22,9 @@ The design history contains an original mission baseline and a later, more aggre
 | Service ceiling | 3,000 m | Current model uses 0.508 m/s (100 ft/min) as the ceiling ROC criterion |
 | Stall speed | ≤85 km/h | Preliminary landing/stall requirement; configuration and applicable standard require confirmation |
 
-### Later ambition recorded in the conversation
+### Latest ambition
 
-| Parameter | Later ambition | Status |
+| Parameter | Latest ambition | Status |
 |---|---:|---|
 | MTOW | 705.7 kg | Proposed in the later structural-sizing discussion; not reconciled with the original 750 kg baseline |
 | Empty mass | 500 kg | Stretch target; not demonstrated by a component mass budget or structural analysis |
