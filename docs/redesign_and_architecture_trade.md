@@ -34,6 +34,8 @@ The practical areas where Eidolon most needs to catch up are:
 
 These are manufacturer-published figures, not an apples-to-apples installed-system comparison. The UL520iS could improve climb and high-speed capability **if** the airframe, propeller, cooling, structure, fuel capacity, and mission support it. It does not automatically improve range or efficiency. If the airframe needs 100 hp to meet its efficient cruise point, selecting 200 hp adds engine and installation mass and may invite higher speed, drag, fuel burn, and structural requirements without solving a real requirement.
 
+The current mission makes the fuel question decisive: 1,000 km at 230 km/h is about 4.35 hours of still-air cruise. ULPower’s rough 25 L/h cruise estimate implies about 109 L, or roughly 78 kg at the project’s historical 0.72 kg/L density, before reserves. With the 170 kg working payload and 500 kg empty-mass ambition, that rough case totals about 748 kg before reserve, unusable fuel, and omitted equipment. This is not a prediction—the aircraft’s required cruise power and the estimate’s applicability are unknown—but it means the old 705.7 kg / 500 kg / 1,000 km combination is not a closed or presently credible UL520 design.
+
 **Recommendation:** retain a 100 hp class engine as the reference case while reopening power sizing from the governing mission. Add the 200 hp UL520iS as a sensitivity/trade case, not the new baseline. Compare both at equal mission payload, range, reserve, and takeoff/climb requirements using complete installation mass and manufacturer power/fuel maps. Do not size Eidolon around DarkAero’s engine before proving the required power.
 
 ## Tractor versus pusher propeller

@@ -28,6 +28,8 @@ The working payload is 160 kg occupants plus 10 kg baggage, separate from fuel a
 
 At 230 km/h, a 1,000 km still-air cruise leg takes about 4.35 hours before climb, descent, wind, or reserve. A historical 25 L tank proposal would allow only about 5.75 L/h across that idealized leg, before reserve. This is a screening check, not a fuel-flow model; it flags the 25 L proposal as unsubstantiated for the selected mission. ULPower’s [product page](https://ulpower.com/en/engines/ul520/ul520is) gives a rough cruise-consumption estimate around 25 L/h for the UL520 family, dependent on aircraft and operating conditions; using that only for scale gives roughly 109 L for 4.35 hours before reserve. Obtain the selected engine’s applicable operating/fuel map before setting tank volume.
 
+Using the project’s historical approximate fuel density of 0.72 kg/L, that UL520 screening case represents about 78 kg of cruise fuel. Adding the confirmed 170 kg people-and-baggage payload and the historical 500 kg empty-mass ambition gives about 748 kg take-off mass before reserve, unusable fuel, or any omitted equipment. This does not prove a particular aircraft mass, because the engine fuel-flow estimate and aircraft power required are not validated. It does show that 705.7 kg MTOW / 500 kg empty mass cannot be carried forward as a closed design under this UL520 mission scenario.
+
 ## Performance guardrails carried from project history
 
 | Constraint | Working value | Status / action |
