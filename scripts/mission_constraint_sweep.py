@@ -31,6 +31,7 @@ ROC_SEA_LEVEL_MS = 3.0
 CLIMB_SPEED_MS = 32.0
 ROC_CEILING_MS = 0.508  # historical 100 ft/min screening criterion
 SERVICE_CEILING_M = 3000.0
+PROP_EFFICIENCY_SCENARIOS = [0.75, 0.80, 0.85]
 WS_MIN = 200.0
 WS_MAX = 1000.0
 N_POINTS = 401
@@ -126,16 +127,23 @@ def main() -> None:
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     ws = [WS_MIN + (WS_MAX - WS_MIN) * i / (N_POINTS - 1) for i in range(N_POINTS)]
-    rows: list[tuple[float, str, float, float, float, float]] = []
-    curves: dict[str, np.ndarray] = {}
+    rows: list[tuple[float, ...]] = []
+    curves: dict[str, list[float]] = {}
     cruise_ms = args.cruise_kmh / 3.6
+
+    def data_row(ws_value: float, name: str, tw: float, rho: float,
+                 speed_ms: float, roc_ms: float) -> tuple[float, ...]:
+        # P_shaft / aircraft mass = g * (T/W) * V / eta_prop.
+        specific_power = [G * tw * speed_ms / eta for eta in PROP_EFFICIENCY_SCENARIOS]
+        return (ws_value, name, tw, rho, speed_ms, roc_ms, *specific_power)
 
     for altitude in args.altitudes_m:
         rho = isa_density(altitude)
         name = f"Cruise: {args.cruise_kmh:g} km/h TAS at {altitude:g} m"
         tw = [level_flight_tw(w, cruise_ms, rho) for w in ws]
         curves[name] = tw
-        rows.extend((float(w), name, float(t), rho, cruise_ms, 0.0) for w, t in zip(ws, tw))
+        rows.extend(data_row(float(w), name, float(t), rho, cruise_ms, 0.0)
+                    for w, t in zip(ws, tw))
 
     rho_sl = isa_density(0.0)
     q_climb = 0.5 * rho_sl * CLIMB_SPEED_MS**2
@@ -143,7 +151,7 @@ def main() -> None:
     climb_tw = [drag_tw + ROC_SEA_LEVEL_MS / CLIMB_SPEED_MS for drag_tw in climb_drag_tw]
     climb_name = f"Sea-level climb: ROC {ROC_SEA_LEVEL_MS:g} m/s at {CLIMB_SPEED_MS:g} m/s"
     curves[climb_name] = climb_tw
-    rows.extend((float(w), climb_name, float(t), rho_sl, CLIMB_SPEED_MS, ROC_SEA_LEVEL_MS)
+    rows.extend(data_row(float(w), climb_name, float(t), rho_sl, CLIMB_SPEED_MS, ROC_SEA_LEVEL_MS)
                 for w, t in zip(ws, climb_tw))
 
     rho_ceiling = isa_density(SERVICE_CEILING_M)
@@ -152,16 +160,18 @@ def main() -> None:
                   for w, v in zip(ws, v_ceiling)]
     ceiling_name = f"Ceiling: {SERVICE_CEILING_M:g} m, ROC {ROC_CEILING_MS:g} m/s"
     curves[ceiling_name] = ceiling_tw
-    rows.extend((float(w), ceiling_name, float(t), rho_ceiling, float(v), ROC_CEILING_MS)
+    rows.extend(data_row(float(w), ceiling_name, float(t), rho_ceiling, float(v), ROC_CEILING_MS)
                 for w, t, v in zip(ws, ceiling_tw, v_ceiling))
 
     stall_ws_max = 0.5 * rho_sl * (STALL_KMH / 3.6) ** 2 * CL_MAX_LANDING
     csv_path = OUT_DIR / "mission_constraint_sweep.csv"
     with csv_path.open("w", newline="", encoding="utf-8") as f:
-        writer = csv.writer(f)
+        writer = csv.writer(f, lineterminator="\n")
         writer.writerow([
             "wing_loading_N_m2", "condition", "required_TW", "density_kg_m3",
             "speed_m_s", "rate_of_climb_m_s",
+            "specific_power_eta_075_W_kg", "specific_power_eta_080_W_kg",
+            "specific_power_eta_085_W_kg",
         ])
         writer.writerows(rows)
 

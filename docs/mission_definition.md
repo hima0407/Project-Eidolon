@@ -44,7 +44,9 @@ Using the project’s historical approximate fuel density of 0.72 kg/L, that UL5
 
 The new [`mission_constraint_sweep.py`](../scripts/mission_constraint_sweep.py) evaluates the 230 km/h TAS cruise requirement at sea level, 1,500 m, and 3,000 m, alongside the historical climb, ceiling, and stall constraints. Its inputs remain the provisional `CD0 = 0.024`, `AR = 8.55`, `e = 0.80`, `CLmax = 1.8`, and 32 m/s climb speed.
 
-At the historical 520 N/m² wing-loading point, it gives required T/W values of 0.125 at sea-level cruise, 0.111 at 1,500 m cruise, 0.099 at 3,000 m cruise, 0.161 for the 3.0 m/s sea-level climb case, and 0.080 for the 3,000 m ceiling case. The provisional stall boundary is 615 N/m². This says only that the climb curve governs at this assumed point under this simplified drag model; it does not select a wing loading, engine, wing area, or MTOW.
+At the historical 520 N/m² wing-loading point, it gives required T/W values of 0.125 at sea-level cruise, 0.111 at 1,500 m cruise, 0.099 at 3,000 m cruise, 0.161 for the 3.0 m/s sea-level climb case, and 0.080 for the 3,000 m ceiling case. The provisional stall boundary is 615 N/m². For a propeller-efficiency sensitivity of 0.75 / 0.80 / 0.85, estimated shaft power per aircraft mass at 1,500 m cruise is 92.6 / 86.8 / 81.7 W/kg; at sea-level cruise it is 104.5 / 97.9 / 92.2 W/kg. These are required-power scenarios only—the model does not include engine power derating, cooling drag, a full-aircraft drag build-up, or a selected mass. It cannot yet decide between the 100 hp and 200 hp engine cases.
+
+This says only that the climb curve governs at the 520 N/m² point under the simplified T/W model; cruise can govern required shaft power depending on altitude and efficiency. The analysis does not select a wing loading, engine, wing area, or MTOW.
 
 - [Constraint sweep graph](../results/constraints/mission_constraint_sweep.svg)
 - [Full constraint sweep data](../results/constraints/mission_constraint_sweep.csv)
