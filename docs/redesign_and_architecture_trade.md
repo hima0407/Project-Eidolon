@@ -40,6 +40,8 @@ These are manufacturer-published figures, not an apples-to-apples installed-syst
 
 Moving the propeller aft can improve packaging and appearance, keep the nose clear, and avoid some tractor-propeller/fuselage or wing slipstream interactions. Those benefits depend on the airframe layout. A pusher propeller commonly ingests the fuselage boundary layer and disturbed wake; installed efficiency, noise/vibration, cooling flow, propeller clearance, aft-CG management, engine access, and crash/load-path concerns can offset any reduction in external drag. A pusher layout is not a free drag reduction.
 
+DarkAero 1 itself uses a **tractor** propeller. DarkAero publicly discussed why a pusher had been hypothesized for its mission, then retained the tractor arrangement after considering the aircraft-specific trade and cooling installation. That makes the right lesson “compare the installed aircraft,” not “copy a pusher because it looks cleaner.”
+
 Available tests are configuration-specific. NASA’s historical wing/nacelle tests found that adding the wing reversed the isolated-nacelle comparison in favor of the tractor installation. A 2024 NASA Ames/Army pusher-fuselage wind-tunnel study found an installed pusher efficiency deficit relative to an isolated propeller, shrinking at higher speed. Other arrangements can favor a pusher, which is why Eidolon must compare its own geometry rather than transfer a generic percentage.
 
 For the current high-wing/conventional-tail concept, there is not yet enough frozen geometry to judge the aft propeller’s wake, tail interaction, cooling, or clearance. A pusher can also require a longer shaft or aft-mounted engine structure depending on where the engine sits; that may affect mass, torsional dynamics, maintenance and crashworthiness. A larger or more powerful engine does not compensate for those issues by itself.
@@ -91,6 +93,7 @@ Plan independent checks and appropriate ground tests. For landing gear, establis
 
 - DarkAero, [FAQ](https://www.darkaero.com/faq/), including engine selection, prototype status, and the qualification that performance figures are projections pending flight testing.
 - DarkAero, [September 2026 update](https://www.darkaero.com/updates-files/sept-2026.html), on landing-gear and structural ground-test work.
+- DarkAero, [September 2023 update](https://www.darkaero.com/updates-files/sept-2023.html), on its pusher-versus-tractor assessment and tractor-propeller configuration.
 - ULPower, [UL520iS specifications](https://ulpower.com/en/engines/ul520/ul520is).
 - BRP-Rotax, [912 iS/iSc Sport specifications](https://www.flyrotax.com/products/912-is-sport-isc-sport).
 - NASA Ames/Army, [pusher propeller and fuselage wind-tunnel testing](https://hdl.handle.net/20.500.11881/4572) (2024).
