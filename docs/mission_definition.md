@@ -40,6 +40,15 @@ Using the project’s historical approximate fuel density of 0.72 kg/L, that UL5
 | Maximum speed | Open; must exceed 230 km/h if 230 km/h is cruise | The earlier 225 km/h target conflicts with the new cruise target; retain only as history until clarified |
 | Structural load factors | TBD | Earlier +4.4 g is an unverified assumption, not a governing structural requirement |
 
+## First constraint sweep
+
+The new [`mission_constraint_sweep.py`](../scripts/mission_constraint_sweep.py) evaluates the 230 km/h TAS cruise requirement at sea level, 1,500 m, and 3,000 m, alongside the historical climb, ceiling, and stall constraints. Its inputs remain the provisional `CD0 = 0.024`, `AR = 8.55`, `e = 0.80`, `CLmax = 1.8`, and 32 m/s climb speed.
+
+At the historical 520 N/m² wing-loading point, it gives required T/W values of 0.125 at sea-level cruise, 0.111 at 1,500 m cruise, 0.099 at 3,000 m cruise, 0.161 for the 3.0 m/s sea-level climb case, and 0.080 for the 3,000 m ceiling case. The provisional stall boundary is 615 N/m². This says only that the climb curve governs at this assumed point under this simplified drag model; it does not select a wing loading, engine, wing area, or MTOW.
+
+- [Constraint sweep graph](../results/constraints/mission_constraint_sweep.svg)
+- [Full constraint sweep data](../results/constraints/mission_constraint_sweep.csv)
+
 ## Sizing sequence
 
 1. Confirm cruise altitude and speed convention, range profile, reserves, runway assumptions, and maximum-speed requirement. Occupant and baggage working masses are currently 2 × 80 kg plus 10 kg.

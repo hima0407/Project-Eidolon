@@ -41,6 +41,8 @@ See [`docs/redesign_and_architecture_trade.md`](docs/redesign_and_architecture_t
 
 [`scripts/constraint_analysis.py`](scripts/constraint_analysis.py) generates a wing-loading versus thrust-to-weight matching graph for cruise, maximum speed, sea-level climb, and service ceiling, alongside the stall boundary. It writes the graph and candidate-point data under `results/constraints/`.
 
+[`scripts/mission_constraint_sweep.py`](scripts/mission_constraint_sweep.py) is the current-mission screening analysis. It compares 230 km/h TAS cruise at sea level, 1,500 m, and 3,000 m against the historical climb, ceiling, and stall constraints. It writes an SVG graph and full CSV sweep under `results/constraints/`. It does not assume an MTOW or identify a selected wing loading. Its aerodynamic inputs remain provisional; see [`docs/mission_definition.md`](docs/mission_definition.md).
+
 This model is a conceptual sizing aid. Its output depends on the assumptions documented in [`docs/requirements.md`](docs/requirements.md); it is not a certified performance prediction.
 
 ### 2. Aerodynamics: NACA 63-415
@@ -71,21 +73,31 @@ The longer-term objective is to integrate the selected wing and propulsion archi
 .
 ├── README.md
 ├── docs/
+│   ├── aerodynamics.md
+│   ├── eidolon_constraint_graph.png
+│   ├── mission_definition.md
+│   ├── redesign_and_architecture_trade.md
 │   ├── requirements.md
-│   └── aerodynamics.md
+│   └── piezoelectric_ribbon_landing_gear_concept.md
 ├── scripts/
 │   ├── constraint_analysis.py
+│   ├── mission_constraint_sweep.py
 │   ├── propulsion_bemt.py
+│   ├── landing_energy_screening.py
 │   └── fetch_airfoils.py
 ├── results/
 │   ├── constraints/
+│   ├── landing_gear/
 │   └── aerodynamics/naca63415/
 └── xflr5/
+    ├── n63412.dat
+    ├── naca0010.dat
+    ├── naca23012.dat
+    ├── naca2412.dat
+    ├── naca4412.dat
     ├── naca63415.dat
     └── projects/main.xfl
 ```
-
-The tree above describes the intended organization; not every path is guaranteed to exist in every checkout yet.
 
 ## Reproducibility
 
