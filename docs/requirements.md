@@ -9,7 +9,7 @@ This document separates mission requirements from model inputs and calculated re
 - Mission priority: useful two-person range and efficiency.
 - Working objective: minimize feasible MTOW while meeting 1,000 km design range and 230 km/h cruise; MTOW is an optimization output, not a selected cap.
 - Jurisdiction to investigate: India; DGCA is the regulatory authority to consult.
-- Occupant/baggage masses, reserve policy, cruise altitude/speed convention, and applicable certification/design basis: **not frozen**. See [`mission_definition.md`](mission_definition.md).
+- Working payload: 2 × 80 kg occupants + 10 kg baggage (owner-confirmed). Reserve policy, cruise altitude/speed convention, and applicable certification/design basis: **not frozen**. See [`mission_definition.md`](mission_definition.md).
 - Regulatory category: **not determined**. Do not infer a category or eligibility from a 600 kg mass figure.
 - Architecture: no engine, tractor/pusher arrangement, or final wing configuration is selected.
 

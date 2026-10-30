@@ -15,16 +15,18 @@ Do not minimize mass by quietly reducing occupant payload, fuel reserve, structu
 | Input | Working value | Status |
 |---|---:|---|
 | Occupants | 2 | User-selected mission requirement |
-| Occupant mass | 80 kg each | Historical project assumption; confirm before sizing |
-| Baggage | 10 kg | Historical project assumption; confirm before sizing |
+| Occupant mass | 80 kg each | User-confirmed working assumption |
+| Baggage | 10 kg | User-confirmed working assumption |
 | Design range | 1,000 km | User-selected target; mission definition and reserve treatment remain open |
-| Cruise speed | 230 km/h | User-selected target; specify true/indicated speed, altitude, and power condition before final analysis |
-| Cruise altitude | TBD | Required for density, engine power, drag, and fuel flow |
+| Cruise speed | 230 km/h | User-selected target; use TAS initially, confirm final convention and power condition |
+| Cruise altitude | TBD | 3,000 m is the ceiling, not the cruise condition. First comparison sweeps sea level, 1,500 m historical reference, and 3,000 m. |
 | Reserve and alternate fuel | TBD | Must be set from the agreed mission and regulatory/design basis; do not assume zero |
 | Maximum take-off mass | Optimized output | No numerical MTOW limit selected |
 | Baggage/fuel loading states | TBD | Needed for mass statement and CG analysis |
 
-The 160 kg occupants plus 10 kg baggage are provisional until confirmed. They are separate from fuel and aircraft empty mass. Range cannot be accepted until its segments, wind allowance, reserve, and alternate policy are defined.
+The working payload is 160 kg occupants plus 10 kg baggage, separate from fuel and aircraft empty mass. Range cannot be accepted until its segments, wind allowance, reserve, and alternate policy are defined.
+
+At 230 km/h, a 1,000 km still-air cruise leg takes about 4.35 hours before climb, descent, wind, or reserve. A historical 25 L tank proposal would allow only about 5.75 L/h across that idealized leg, before reserve. This is a screening check, not a fuel-flow model; it flags the 25 L proposal as unsubstantiated for the selected mission. ULPower’s [product page](https://ulpower.com/en/engines/ul520/ul520is) gives a rough cruise-consumption estimate around 25 L/h for the UL520 family, dependent on aircraft and operating conditions; using that only for scale gives roughly 109 L for 4.35 hours before reserve. Obtain the selected engine’s applicable operating/fuel map before setting tank volume.
 
 ## Performance guardrails carried from project history
 
@@ -38,7 +40,7 @@ The 160 kg occupants plus 10 kg baggage are provisional until confirmed. They ar
 
 ## Sizing sequence
 
-1. Confirm occupant/baggage mass, cruise altitude and speed convention, range profile, reserves, runway assumptions, and maximum-speed requirement.
+1. Confirm cruise altitude and speed convention, range profile, reserves, runway assumptions, and maximum-speed requirement. Occupant and baggage working masses are currently 2 × 80 kg plus 10 kg.
 2. Set an initial outer geometry and engine/propeller installation alternatives. Keep at least a 100 hp reference and a 200 hp UL520iS sensitivity case until power sizing selects among them.
 3. Estimate mass with an itemized component build-up and explicit uncertainty. Use correlations only as cross-checks, not as a substitute for component mass accounting.
 4. Iterate gross mass, wing area/loading, structure, propulsion, fuel, and payload until the weight statement closes.

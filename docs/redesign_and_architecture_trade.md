@@ -4,7 +4,7 @@
 
 ## Design direction
 
-The owner’s current priority is a useful two-person aircraft optimized for range and efficiency, with a working objective to minimize feasible take-off mass while meeting 1,000 km design range and 230 km/h cruise. India is the jurisdiction to investigate, with DGCA as the regulator. Occupant/baggage masses, reserve policy, cruise altitude/speed convention, and the applicable airworthiness/certification basis still need confirmation. The existing 750 kg / 800 km analysis remains historical; 705.7 kg is no longer a governing cap. See [`mission_definition.md`](mission_definition.md).
+The owner’s current priority is a useful two-person aircraft optimized for range and efficiency, with a working objective to minimize feasible take-off mass while meeting 1,000 km design range and 230 km/h cruise. The working payload is 2 × 80 kg occupants plus 10 kg baggage. India is the jurisdiction to investigate, with DGCA as the regulator. Reserve policy, cruise altitude/speed convention, and the applicable airworthiness/certification basis still need confirmation. The existing 750 kg / 800 km analysis remains historical; 705.7 kg is no longer a governing cap. See [`mission_definition.md`](mission_definition.md).
 
 Do not call the aircraft an Indian “LSA” or infer its regulatory category from a 600 kg mass. Ask DGCA or an appropriately qualified Indian airworthiness specialist to establish the applicable approval path and design basis before using certification language. DGCA’s airworthiness procedures describe issuance of a certificate of airworthiness for a complete aircraft against its type design and a safe-for-flight finding; this project is not at that stage.
 
@@ -52,7 +52,7 @@ For the current high-wing/conventional-tail concept, there is not yet enough fro
 
 ### Gate 0 — freeze the remaining mission and regulatory inputs
 
-Confirm occupant/baggage design masses, range profile and reserve, cruise altitude and speed convention, maximum speed above the 230 km/h cruise target, takeoff/landing distance, runway surface, environmental assumptions, and intended use. Confirm the DGCA approval/certification path with a qualified source. Keep old and stretch missions as separate cases.
+Confirm the 1,000 km range profile and reserve, cruise altitude/speed convention, maximum speed above the 230 km/h cruise target, takeoff/landing distance, runway surface, environmental assumptions, and intended use. Confirm the DGCA approval/certification path with a qualified source. Keep old and stretch missions as separate cases.
 
 **Accept when:** every requirement has a source/owner, units, condition, and priority; the mass and payload terms are unambiguous; no model combines incompatible cases.
 

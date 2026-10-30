@@ -33,7 +33,7 @@ The current conceptual constraint model uses provisional values of `CD0 = 0.024`
 
 ### Redesign decision framework
 
-The current redesign objective is the lowest feasible take-off mass for two people, 1,000 km design range, and 230 km/h cruise, using India/DGCA as the regulatory context to investigate. Occupant/baggage masses, reserve policy, cruise altitude, and applicable design/certification basis remain to be confirmed. Do not infer an Indian “LSA” category from a 600 kg mass assumption. See [`docs/mission_definition.md`](docs/mission_definition.md).
+The current redesign objective is the lowest feasible take-off mass for two people, 1,000 km design range, and 230 km/h cruise. Working payload is 2 × 80 kg occupants + 10 kg baggage. India/DGCA is the regulatory context to investigate; reserve policy, cruise altitude, speed convention, and applicable design/certification basis remain open. Do not infer an Indian “LSA” category from a 600 kg mass assumption. See [`docs/mission_definition.md`](docs/mission_definition.md).
 
 See [`docs/redesign_and_architecture_trade.md`](docs/redesign_and_architecture_trade.md) for the DarkAero benchmark, engine mass/power comparison, tractor-versus-pusher trade, current recommendation, and decision gates. It is a preliminary trade study; no engine, propeller position, or aircraft configuration is selected by it.
 
