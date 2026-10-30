@@ -4,6 +4,16 @@
 
 This document separates mission requirements from model inputs and calculated results. Values marked *provisional* must not be presented as measured or validated aircraft properties.
 
+## 0. Current owner priorities and regulatory context
+
+- Mission priority: useful two-person range and efficiency.
+- Jurisdiction to investigate: India; DGCA is the regulatory authority to consult.
+- Numeric mission requirements and applicable certification/design basis: **not frozen**.
+- Regulatory category: **not determined**. Do not infer a category or eligibility from a 600 kg mass figure.
+- Architecture: no engine, tractor/pusher arrangement, or final wing configuration is selected.
+
+Until Gate 0 is closed, preserve the original baseline and later ambitions as separate scenarios. Use [`redesign_and_architecture_trade.md`](redesign_and_architecture_trade.md) to track the engine and propeller-placement trade.
+
 ## 1. Mission requirements and evolved ambitions
 
 The design history contains an original mission baseline and a later, more aggressive architecture proposal. They must not be silently combined because the mass and wing-loading values do not currently close to one consistent configuration.

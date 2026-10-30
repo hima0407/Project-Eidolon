@@ -31,6 +31,12 @@ The current conceptual constraint model uses provisional values of `CD0 = 0.024`
 
 ## Workstreams
 
+### Redesign decision framework
+
+The current redesign direction prioritizes a two-person range/efficiency mission and uses India as the regulatory context to investigate. The mission numbers and applicable DGCA design/certification basis still need to be formally confirmed. Do not infer an Indian “LSA” category from a 600 kg mass assumption.
+
+See [`docs/redesign_and_architecture_trade.md`](docs/redesign_and_architecture_trade.md) for the DarkAero benchmark, engine mass/power comparison, tractor-versus-pusher trade, current recommendation, and decision gates. It is a preliminary trade study; no engine, propeller position, or aircraft configuration is selected by it.
+
 ### 1. Constraint analysis
 
 [`scripts/constraint_analysis.py`](scripts/constraint_analysis.py) generates a wing-loading versus thrust-to-weight matching graph for cruise, maximum speed, sea-level climb, and service ceiling, alongside the stall boundary. It writes the graph and candidate-point data under `results/constraints/`.

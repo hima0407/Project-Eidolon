@@ -8,6 +8,8 @@ The current wing study uses the NACA 63-415 section as the working candidate, fo
 
 ## Available analysis artifacts
 
+**Revision warning:** the XFLR5 project was updated on 28 October 2026 with a reported −2° washout and NACA 63-412 tip blend. The committed analysis log and exported polars are dated 27 October and identify the study as NACA 63-415. Until a reviewer confirms the saved project geometry and reruns the analysis, treat the committed polar and graph as belonging to the earlier geometry revision; do not use them as outputs for the latest wing.
+
 The current result package is intended to contain:
 
 - `results/aerodynamics/naca63415/polar2d.txt` — 2D airfoil polar output.
@@ -26,6 +28,8 @@ The supplied XFLR5 VLM2 CSV reports a freestream speed of 55.6 m/s, approximatel
 - `CL` ≈ 0.3311
 - `CD` ≈ 0.00888
 - sampled `CL/CD` ≈ 37.3
+
+The run log gives density as `0.909 kg/m³`, corresponding approximately to the 3,000 m atmosphere used in the current project notes, while the constraint model's nominal cruise condition is 200 km/h at about 1,500 m (`1.0581 kg/m³`). The speed matches; the density/altitude condition does not. Re-run or normalize the comparison before using this polar as the nominal cruise point.
 
 This is a point from the supplied simulation output, not a validated aircraft cruise L/D. The precise solver setup, Reynolds-number coverage, transition treatment, wing geometry, and polar conventions must be checked against the project file and log before using the numbers in a design calculation.
 
