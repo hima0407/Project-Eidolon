@@ -57,6 +57,18 @@ class Aircraft:
     x_nose_gear: float = 0.80
     x_main_gear_offset: float = 0.30   # main gear behind aft CG limit
     eta_h: float = 0.90                # tail dynamic-pressure ratio
+    # --- empennage configuration (studies/09_tail_configuration.py) ---
+    tail_config: str = "conventional"  # conventional | cruciform | T-tail | H-tail | V-tail
+    ht_height_frac: float = 0.0        # HT root height as a fraction of fin height above the tail cone
+    ht_forward_shift: float = 0.0      # HT moved forward of the fin root [m] (frees the rudder in a spin)
+    elevator_chord_ratio: float = 0.38 # elevator chord / tail chord
+    slipstream_immersion: float | None = None   # fraction of HT span in the prop slipstream (None: geometric)
+    ht_endplate: float = 1.0           # HT lift-slope factor from fin end-plating (T/H tails)
+    ht_mass_factor: float = 1.0
+    vt_mass_factor: float = 1.0
+    ventral_strake_m2: float = 0.0     # ventral fin/strake side area (spin damping)
+    cone_top_z: float = 0.22           # tail-cone top height at the tail [m]
+    le_cuff: bool = False              # drooped outboard leading edge (spin resistance), +3 drag counts [A]
     notes: dict = field(default_factory=dict)
 
     # --- convenience ---
@@ -100,8 +112,15 @@ def place_tails(ac: Aircraft, vh: float, vv: float) -> Aircraft:
     L = ac.fuselage.length
     for _ in range(20):
         ht, vt = ac.htail, ac.vtail
-        ht.x_le_root = L - ht.c_root - 0.05
         vt.x_le_root = L - vt.c_root - 0.05
+        vt.z_root = ac.cone_top_z
+        hf = ac.ht_height_frac
+        # HT root rides up the swept fin leading edge for cruciform / T-tails
+        ht.x_le_root = vt.x_le_root + hf * vt.span * math.tan(vt.sweep_le_rad) + 0.3 * hf * (vt.c_root - vt.c_tip) \
+            - (ht.c_root - vt.c_root) * (1 - hf) - ac.ht_forward_shift
+        if hf == 0:
+            ht.x_le_root = L - ht.c_root - 0.05 - ac.ht_forward_shift
+        ht.z_root = ac.cone_top_z + hf * vt.span
         lh, lv = ht.x_ac - ac.wing.x_ac, vt.x_ac - ac.wing.x_ac
         ht.area = vh * ac.wing.area * ac.wing.mac / lh
         vt.area = vv * ac.wing.area * ac.wing.span / lv
@@ -129,8 +148,8 @@ def eidolon(engine_key: str = "912iSc", wing_area: float = 14.15, span: float = 
         flaps=Flaps("single slotted", 0.62, 0.28, 30.0, 15.0), prop=Propeller(1.75, 3, True),
         engine_key=engine_key, fuel_capacity_l=100.0,
         wing_laminar_fraction=0.35, tail_laminar_fraction=0.25, fuselage_laminar_fraction=0.05,
-        cl_max_2d_clean=1.50, interference_wing=1.0, interference_tail=1.04, interference_fuse=1.0,
-        canopy_dq_m2=0.025,
+        cl_max_2d_clean=1.50, interference_wing=1.0, interference_fuse=1.0,
+        canopy_dq_m2=0.025, elevator_chord_ratio=0.40, ventral_strake_m2=0.18, interference_tail=1.05, le_cuff=True,
         notes={
             "wing_laminar_fraction": "[XFLR5 polar] NACA 63-415 at cruise CL~0.35 shows Xtr ~0.35-0.5 top, ~0.3-0.4 bottom (free transition, Ncrit 9); 0.35 keeps margin for real-surface contamination",
             "cl_max_2d_clean": "[A] Abbott & von Doenhoff: NACA 63-415 smooth clmax ~1.6 at Re 6e6; 1.50 used at landing Re ~2.5e6",
@@ -177,3 +196,30 @@ HANSA_PUBLISHED = {
     "fuel_l": 95.0,
     "source": "CSIR-NAL, Hansa-NG brochure (Jan 2020), nal.res.in",
 }
+
+
+# ---------------------------------------------------------------------------------------------
+# Published comparators used to measure the mass of 'everything a certified trainer carries that a
+# bottom-up structural model does not list' (studies/01_mass_estimation.py). Geometry from public specifications; tail
+# volumes, taper and gear details are the same generic assumptions as for Hansa-NG.
+COMPARATORS = {
+    # name: (MTOW, empty, span, area, body length, engine, fuel L, category, source)
+    "Hansa-NG":         (750.0, 540.0, 10.47, 12.47, 7.40, "912iSc", 95.0, "certified trainer", "CSIR-NAL brochure 2020"),
+    "Aquila A210":      (750.0, 500.0, 10.30, 10.50, 7.00, "912ULS", 109.0, "certified trainer", "Wikipedia: Aquila A 210"),
+    "Diamond DV20 Katana": (730.0, 505.0, 11.00, 11.62, 6.90, "912ULS", 80.0, "certified trainer", "aeropedia.com.au: HOAC Katana DV-20"),
+    "Pipistrel Virus SW 100": (600.0, 289.0, 10.71, 9.51, 6.30, "912ULS", 100.0, "light-sport / microlight", "Wikipedia: Pipistrel Virus"),
+}
+
+
+def comparator(name: str) -> Aircraft:
+    mtow, empty, span, area, length, eng, fuel, cat, src = COMPARATORS[name]
+    ac = hansa_ng()
+    ac.name = name
+    ac.mtow = mtow
+    w = ac.wing
+    w.area, w.aspect_ratio = area, span**2 / area
+    ac.fuselage.length = length
+    ac.engine_key = eng
+    ac.fuel_capacity_l = fuel
+    ac.notes = {"published_empty_kg": empty, "category": cat, "source": src}
+    return place_tails(ac, vh=0.65, vv=0.040)
