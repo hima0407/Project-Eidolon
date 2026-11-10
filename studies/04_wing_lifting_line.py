@@ -36,7 +36,7 @@ def main():
     w_x = eidolon("912iSc", 14.152, 11.0).wing
     w_x.twist_tip_deg = 0.0
     ll_x = LiftingLine(w_x, a0_per_rad=6.30, alpha0_deg=-3.04)
-    vlm = read_vlm(ROOT / "results" / "aerodynamics" / "naca63415" / "polar3d.csv")
+    vlm = read_vlm(ROOT / "xflr5" / "results" / "naca63415" / "polar3d.csv")
     a_v, cl_v, cdi_v = vlm[:, 0], vlm[:, 2], vlm[:, 3]
     cl_ll = np.array([ll_x.solve(a).CL for a in a_v])
     cdi_ll = np.array([ll_x.solve(a).CDi for a in a_v])

@@ -251,7 +251,7 @@ Weights: fuel burn 30 %, range 25 %, hot-day climb 15 %, hot-day take-off 10 %, 
 **Evidence** (study 07). Blade-element momentum theory with Prandtl tip and hub loss, stall and drag rise:
 - At 200 km/h and 1500 m: BEMT η = 0.883; the actuator-disk ideal is 0.959; **installed η = 0.81** after the 0.92 installation factor. The code asserts that BEMT never exceeds the ideal.
 - 3-blade vs 2-blade at the same activity factor: +0.1 % in cruise, but **+32 % static thrust** (2,430 N vs 1,850 N). That matters for take-off and for the rotation criterion (D6).
-- Our earlier result of 89.2 % (`scripts/propulsion_bemt.py`) was computed at 230 km/h and 3000 m, with an airfoil model that never stalls. It is superseded.
+- Our earlier result of 89.2 % (`archive/first_iteration/scripts/propulsion_bemt.py`) was computed at 230 km/h and 3000 m, with an airfoil model that never stalls. It is superseded.
 
 ---
 

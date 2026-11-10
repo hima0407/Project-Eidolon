@@ -7,7 +7,7 @@ from pathlib import Path
 import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
-AIRFOIL_DIR = ROOT / "xflr5"
+AIRFOIL_DIR = ROOT / "xflr5" / "airfoils"
 
 
 def load_dat(name_or_path) -> np.ndarray:

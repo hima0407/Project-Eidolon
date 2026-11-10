@@ -1,6 +1,6 @@
 """Study 07 - Propeller: BEMT efficiency, momentum-theory bound, 2 vs 3 blades.
 
-Replaces the earlier scripts/propulsion_bemt.py result (89.2 % at 230 km/h / 3000 m, no stall model).
+Replaces the earlier archive/first_iteration/scripts/propulsion_bemt.py result (89.2 % at 230 km/h / 3000 m, no stall model).
 Checks shown on the figure:
   * BEMT efficiency always below the actuator-disk ideal (a hard physical bound)
   * installed efficiency = BEMT x 0.92 (spinner/nacelle blockage, scrubbing, blade Re) [A]

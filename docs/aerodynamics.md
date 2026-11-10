@@ -10,11 +10,11 @@ The current wing study uses the NACA 63-415 section as the working candidate, fo
 
 The current result package is intended to contain:
 
-- `results/aerodynamics/naca63415/polar2d.txt` — 2D airfoil polar output.
-- `results/aerodynamics/naca63415/polar3d.csv` — exported 3D wing polar.
-- `results/aerodynamics/naca63415/analysis_log.txt` — analysis settings and run notes.
-- `results/aerodynamics/naca63415/polar_graphs.png` — plotted results.
-- `xflr5/naca63415.dat` — airfoil coordinates.
+- `xflr5/results/naca63415/polar2d.txt` — 2D airfoil polar output.
+- `xflr5/results/naca63415/polar3d.csv` — exported 3D wing polar.
+- `xflr5/results/naca63415/analysis_log.txt` — analysis settings and run notes.
+- `xflr5/results/naca63415/polar_graphs.png` — plotted results.
+- `xflr5/airfoils/naca63415.dat` — airfoil coordinates.
 - `xflr5/projects/main.xfl` — XFLR5 project.
 
 Check that these files exist in the working checkout before treating the list as a complete inventory.

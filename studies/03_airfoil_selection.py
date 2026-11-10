@@ -1,7 +1,7 @@
 """Study 03 - Why NACA 63-415 for the wing.
 
 Evidence used:
- 1. Geometry from the coordinate files in xflr5/: thickness, its location, and the
+ 1. Geometry from the coordinate files in xflr5/airfoils/: thickness, its location, and the
     spar-box area that sets wing fuel volume and spar depth (bending stiffness ~ depth^2).
  2. XFLR5 (XFOIL) polars. If the team's matched batch (xflr5/polars/*.txt, Re 2-4.5 M) is
     present it is used; otherwise only the NACA 63-415 Re = 6 M polar already in the repo is plotted
@@ -34,7 +34,7 @@ def find_polars():
         key = next((k for k in CANDIDATES if k.replace("naca", "") in p.stem.replace("-", "").replace("_", "")), None)
         if key:
             out.setdefault(key, []).append(pol)
-    base = ROOT / "results" / "aerodynamics" / "naca63415" / "polar2d.txt"
+    base = ROOT / "xflr5" / "results" / "naca63415" / "polar2d.txt"
     if base.exists() and "naca63415" not in out:
         out["naca63415"] = [read_xflr5_polar(base)]
     return out
@@ -57,7 +57,7 @@ def main():
     ax.set_xlabel("x/c"); ax.set_ylabel("y/c")
     ax.legend(loc="upper right", ncol=2, fontsize=8.5)
     ax.set_title("Candidate sections at true scale")
-    style.note(fig, "Coordinates: xflr5/*.dat in this repository.")
+    style.note(fig, "Coordinates: xflr5/airfoils/*.dat in this repository.")
     style.save(fig, OUT / "airfoil_shapes.png")
 
     rows = [(LABEL[k], p.t_c, p.x_t, p.area_box) for k, p in props.items()]
@@ -87,7 +87,7 @@ def main():
     axs[2].set_ylim(0, 1)
     axs[0].legend(fontsize=8, loc="lower right")
     if not complete:
-        fig.text(0.5, 1.03, "Incomplete: only the polars found in xflr5/polars/ and results/aerodynamics are shown - "
+        fig.text(0.5, 1.03, "Incomplete: only the polars found in xflr5/polars/ and xflr5/results/ are shown - "
                  "run the matched XFLR5 batch (docs/HOW_TO_RUN_XFLR5.md)", ha="center", color=style.BAD, fontsize=9)
     style.note(fig, "XFOIL (via XFLR5 v6.62), free transition, Ncrit = 9, M = 0. Numerical results, not wind-tunnel data.")
     style.save(fig, OUT / "airfoil_polars.png")

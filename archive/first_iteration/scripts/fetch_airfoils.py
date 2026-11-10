@@ -10,8 +10,8 @@ import os
 import tempfile
 import urllib.request
 
-ROOT = Path(__file__).resolve().parents[1]
-TARGET = ROOT / "xflr5" / "naca63415.dat"
+REPO = Path(__file__).resolve().parents[3]   # archive/first_iteration/scripts -> repository root
+TARGET = REPO / "xflr5" / "airfoils" / "naca63415.dat"
 URL = "https://airfoiltools.com/airfoil/seligdatfile?airfoil=n63415-il"
 
 
@@ -69,7 +69,7 @@ def main() -> int:
         except OSError:
             pass
         raise
-    print(f"SUCCESS: {message}; wrote {TARGET.relative_to(ROOT)}")
+    print(f"SUCCESS: {message}; wrote {TARGET.relative_to(REPO)}")
     print("Note: coordinate-format validation does not independently verify airfoil provenance or geometry quality.")
     return 0
 

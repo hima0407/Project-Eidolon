@@ -8,22 +8,22 @@
   },
   "rectangular_AR8_e_span": 0.9368472368683667,
   "twist_+0": {
-    "CLmax_critical_section": 1.3826547883941753,
+    "CLmax_critical_section": 1.3826547883941749,
     "alpha_stall": 12.350000000000001,
     "eta_first_stall": 0.5224985647159489,
     "e_span_cruise": 0.9690909624745833
   },
   "twist_-2": {
-    "CLmax_critical_section": 1.3843686978555148,
+    "CLmax_critical_section": 1.384368697855515,
     "alpha_stall": 13.25,
     "eta_first_stall": 0.38268343236508984,
-    "e_span_cruise": 0.9788163554399432
+    "e_span_cruise": 0.9788163554399434
   },
   "twist_-4": {
     "CLmax_critical_section": 1.359060038162572,
     "alpha_stall": 13.850000000000001,
     "eta_first_stall": 0.23344536385590547,
-    "e_span_cruise": 0.8791911640374883
+    "e_span_cruise": 0.8791911640374884
   },
   "leading_edge_cuff": {
     "aileron_unstalled_fraction_vs_dalpha": {

@@ -13,7 +13,7 @@ equals the shaft power at the given rpm.
 Upper-bound check (used in tests and in the validation study): no real propeller can
 beat the actuator-disk ideal efficiency  eta_i = 2 / (1 + sqrt(1 + T/(q A))).
 
-Previous project code (scripts/propulsion_bemt.py) used an airfoil model with no stall
+Previous project code (archive/first_iteration/scripts/propulsion_bemt.py) used an airfoil model with no stall
 and was run at 230 km/h / 3000 m. This module adds stall, compressibility, an ideal-pitch
 twist law and a momentum-theory sanity bound.
 """
