@@ -1,115 +1,184 @@
 # Project Eidolon
 
-**Computational preliminary design of a two-seat light aircraft**
+**A two-seat light trainer designed to beat the Hansa-NG, with every number traceable to code.**
 
-Project Eidolon brings together conceptual aircraft sizing, airfoil and finite-wing aerodynamics, propulsion matching, mass/centre-of-gravity analysis, and CAD integration. The goal is a traceable engineering design process: every requirement, assumption, model output, and design decision should be distinguishable and reproducible.
+![Eidolon v1, generated from the design closure](results/16_geometry/render_hero.png)
 
-> **Project status:** preliminary design. Mission targets are not yet demonstrated aircraft capabilities. Current aerodynamic results are simulation outputs, and the propulsion, mass-budget, CG, and range models still require verification.
+Eidolon is a first-semester conceptual design of a 750 kg, two-seat, single-engine trainer. It sits in the same class as India's CSIR-NAL **Hansa-NG**. Every number in this repository comes out of one Python pipeline: airfoils, wing, structure and mass, drag, propeller, engine choice, tail, CG, performance, loads, landing gear and the 3-D model. Every chosen value is the result of a study you can re-run with one command.
 
-## Mission baseline and evolved ambitions
+> **Status:** preliminary design (conceptual phase). Results are outputs of calibrated engineering models, not flight-test or wind-tunnel data. [Methods & validation](docs/METHODS_AND_VALIDATION.md) lists what each model can and cannot claim.
 
-The original mission brief specifies the baseline below. Later in the design conversation, a more aggressive concept was proposed. Because the mass, wing-loading, fuel, and range figures have not yet been reconciled into one configuration, the sizing script currently uses the original baseline while the newer goals remain stretch ambitions.
+---
 
-| Parameter | Original baseline | Later ambition in design history |
-|---|---:|---:|
-| MTOW | 750 kg | 705.7 kg proposed |
-| Empty mass | ≤550 kg | 500 kg stretch target |
-| Range | 800 km | 1,000 km stretch target |
-| Cruise speed | 200 km/h | 200 km/h working cruise condition |
-| Maximum speed | 225 km/h | To be re-verified against the chosen configuration |
-| Sea-level rate of climb | 3.0 m/s | 3.0 m/s working requirement |
-| Service ceiling | 3,000 m | 3,000 m working requirement |
-| Fuel tank proposal | Not fixed in original baseline | 25 L proposed later; feasibility not yet established |
+## The idea in one line: calibrate on real aircraft, then beat them
 
-The later discussion also proposes preliminary +4.4 g structural sizing and a 20–30% MAC CG target. These remain unverified design inputs. See [`docs/requirements.md`](docs/requirements.md) for the full register and the configuration decision that must be resolved before the newer ambitions can govern the calculations.
+Every conceptual-design model has bias. So we first run our models on real aircraft with published data, and only then on Eidolon.
 
-## Current design baseline
+- **Mass.** A bottom-up count of sized structure, plus one measured unknown: the "class allowance" that a bottom-up count always misses, measured on three certified trainers (Hansa-NG, Aquila A210, DV20 Katana) as **148.8 ± 11.6 kg**. Leave-one-out predicts each of them within −3.7 % to +2.1 %.
+- **Performance.** Two factors fitted on the Hansa-NG's cruise speed and climb rate. The models then predict five other published Hansa-NG numbers within **±15 %**.
 
-The project is carrying a **candidate** wing loading of 520 N/m². At the 750 kg MTOW target, this implies a wing area of approximately 14.14 m². This is a starting point from the design plan, not a demonstrated global optimum.
+Eidolon then goes through the **identical** models, so whatever bias is left mostly cancels and the comparison is like-for-like.
 
-The current conceptual constraint model uses provisional values of `CD0 = 0.024`, `AR = 8.55`, `e = 0.80`, and `CLmax = 1.8` for the assumed landing configuration. These are model inputs, not measured aircraft properties. The project should test sensitivity to uncertain inputs instead of quietly treating them as facts. Propeller efficiency remains unknown until a defensible model or source establishes it.
+![Model check on Hansa-NG](results/02_calibration/hansa_validation.png)
 
-## Workstreams
+## Eidolon v1 against the Hansa-NG
 
-### 1. Constraint analysis
+| Same models, same calibration | Hansa-NG | **Eidolon v1** | Change |
+|---|---:|---:|---:|
+| Fuel per 100 km at 200 km/h | 9.35 L | **7.84 L** | **−16 %** |
+| Range at 200 km/h, 2 × 77 kg + 10 kg, 45-min reserve | 713 km | **803 km** | +13 % |
+| Cruise speed at 75 % power, 1500 m | 200 km/h | **216 km/h** | +8 % |
+| Max rate of climb, sea level | 3.30 m/s | **3.70 m/s** | +12 % |
+| Take-off distance to 15 m | 405 m | **357 m** | −12 % |
+| Stall speed, landing flap | 86 km/h* | **81 km/h** | −6 % |
+| L/D max | 12.8 | **15.0** | +17 % |
+| Parasite drag coefficient CD0 | 0.0332 | **0.0263** | −21 % |
+| Empty mass | 526 kg | **530 kg** | +1 % |
+| Spin screen (Bowman TDPF, ≥ 200 × 10⁻⁶) | — | **481 × 10⁻⁶** | passes |
 
-[`scripts/constraint_analysis.py`](scripts/constraint_analysis.py) generates a wing-loading versus thrust-to-weight matching graph for cruise, maximum speed, sea-level climb, and service ceiling, alongside the stall boundary. It writes the graph and candidate-point data under `results/constraints/`.
+\*Model value. The model over-predicts Hansa-NG's published 80 km/h by 8 %, so Eidolon's 81 km/h is conservative. It is below the CS-VLA limit of 83 km/h.
 
-This model is a conceptual sizing aid. Its output depends on the assumptions documented in [`docs/requirements.md`](docs/requirements.md); it is not a certified performance prediction.
+**Is the advantage real?** We ran the comparison 800 times in Monte Carlo, with every uncertain assumption drawn wide, once with priors biased against Eidolon and once neutral ([study 14](studies/14_sensitivity.py)).
 
-### 2. Aerodynamics: NACA 63-415
+- **Fuel burn:** Eidolon burns less in **100 %** of samples in both runs (−4 % to −14 % P5-P95, pessimistic).
+- **Range with two crew:** better in **66 %** (neutral) and **30 %** (pessimistic). At a fixed 750 kg, every kilogram of empty mass is a kilogram of fuel, about **18 km** of range, and Eidolon's lead vanishes if its empty mass grows 5 kg beyond the estimate.
 
-The current airfoil direction is the NACA 63-415 natural-laminar-flow section, replacing the earlier NACA 23012 baseline in the current wing study. The repository contains preliminary XFLR5 2D/3D outputs and project files. These results should be compared at matched Reynolds numbers and settings before claiming an improvement over the earlier airfoil.
+So the fuel-burn advantage is firm; the range advantage is **conditional on hitting the mass estimate**, which makes a weight-tracking budget the first job of the next phase.
 
-- [Aerodynamic methodology](docs/aerodynamics.md)
-- [NACA 63-415 result package](results/aerodynamics/naca63415/readme.md)
-- [XFLR5 project](xflr5/projects/main.xfl)
+![Monte Carlo](results/14_sensitivity/monte_carlo.png)
 
-A wing polar does not equal the complete aircraft drag polar. It does not independently establish aircraft cruise efficiency, maximum speed, climb, or range.
+---
 
-### 3. Propulsion matching
+## Design decisions, each with its evidence
 
-The ambition is to model propeller performance across the relevant speed and operating range, then compare available thrust with aircraft drag and establish required shaft power. The existing BEMT work is exploratory until its assumptions, convergence, coefficients, and results are checked. No propeller efficiency should be described as verified without supporting evidence.
+| # | Decision | Why (short) | Evidence |
+|---|---|---|---|
+| [D1](docs/DESIGN_DECISIONS.md#d1-mission-mtow-and-certification-basis) | 750 kg MTOW, 2 seats, CS-VLA envelope, +4.4 g utility loads | Same class as Hansa-NG, fair comparison; spin-training loads | studies 02, 12 |
+| [D2](docs/DESIGN_DECISIONS.md#d2-mass-is-estimated-bottom-up-and-the-unknown-is-measured) | **Bottom-up mass** + measured class allowance, as a random variable | Sees Eidolon's differences from Hansa; P5-P95 500-560 kg | study 01 |
+| [D3](docs/DESIGN_DECISIONS.md#d3-wing-section-naca-63-415-blending-to-63-412) | NACA 63-415 root → 63-412 tip | Laminar to ~35-50 % chord at cruise CL; 25 % deeper spar | study 03 |
+| [D4](docs/DESIGN_DECISIONS.md#d4-wing-planform-1325-m-115-m-taper-06-2-washout) | **13.25 m², 11.5 m span (AR 10)**, taper 0.6, −2° washout | Fuel-burn optimum of a carpet of fully closed aircraft, range ≥ 800 km | studies 04, 05 |
+| [D5](docs/DESIGN_DECISIONS.md#d5-spin-resistant-drooped-outboard-leading-edge) | **Drooped outboard leading edge** | Ailerons stay 100 % unstalled 3° past first stall (37.5 % without) | study 04 |
+| [D6](docs/DESIGN_DECISIONS.md#d6-tail-conventional-low-tail-ventral-strake-40-elevator) | **Conventional low tail + ventral strake, 40 % elevator** | 6 configurations re-closed; T-tail can't rotate before lift-off; strake triples spin damping | studies 09, 10 |
+| [D7](docs/DESIGN_DECISIONS.md#d7-drag-reduction) | Faired gear, laminar wing, compact fuselage | −16 % parasite drag area; the gear fairings are the biggest item | study 06 |
+| [D8](docs/DESIGN_DECISIONS.md#d8-engine-rotax-912-isc) | **Rotax 912 iSc** (vs 912 ULS, 914, 915 iS, UL520iS) | Each engine re-closed in its own airframe. The DarkAero 1's UL520iS leaves 10 kg of fuel with two crew | study 08 |
+| [D9](docs/DESIGN_DECISIONS.md#d9-propeller-175-m-3-blade-constant-speed) | 1.75 m, 3-blade, constant speed | BEMT checked against the momentum limit; 81 % installed in cruise | study 07 |
+| [D10](docs/DESIGN_DECISIONS.md#d10-glass-fibre-leaf-spring-gear-with-piezo-health-monitoring) | S-glass leaf-spring gear with piezo health monitoring | Lightest spring material (σ²/Eρ); piezo logs every landing, but can absorb only 0.04 % of it | study 13 |
 
-### 4. Mass, CG, and range
+Appendix concept: [hybrid take-off boost for 45 °C airfields](docs/hybrid_boost_concept.md) (study 15).
 
-The 550 kg empty-mass target and 800 km range belong to the original baseline. Later design discussion proposes a 500 kg empty-mass target, 1,000 km range, 705.7 kg MTOW, 25 L fuel tanks, +4.4 g structural sizing, and a 20–30% MAC CG target. These newer ambitions are captured in the requirements register but are not yet reconciled into a single mass/geometry/mission model. Occupant/fuel allocation, structural mass, CG travel, and range must be demonstrated before any of them can be presented as achieved.
+## What makes it different
 
-### 5. CAD and integration
+- **Spin-resistant by design.** Washout, a drooped outboard leading edge and a ventral strake, each screened with a published criterion, for a trainer that students will stall and spin.
+- **A wing the old statistics would never have chosen.** Sizing the carbon spar instead of using a fitted equation made span cheap, and the optimum moved from 10.25 m to 11.5 m.
+- **A landing gear that reports on itself.** Piezo films log the sink rate of every landing and flag hard ones; PZT wafers can find damage in the composite leaf between inspections.
+- **CAD that follows the numbers.** Change the design, re-run, and the Fusion 360 solids, viewer and renders follow ([docs/CAD.md](docs/CAD.md)).
 
-The longer-term objective is to integrate the selected wing and propulsion architecture into a consistent 3D configuration, then check component packaging, mass distribution, CG travel, and structural assumptions.
+## How the pipeline closes the design
+
+```mermaid
+flowchart LR
+  R[Requirements<br/>docs/requirements.md] --> G[Geometry<br/>wing, tails, fuselage]
+  G --> A[Aerodynamics<br/>lifting line + drag build-up]
+  A --> S[Structure<br/>spar sized for 6.6 g]
+  S --> W[Mass<br/>bottom-up + class allowance]
+  E[Engine data] --> P[Propeller BEMT]
+  W --> C[CG envelope]
+  A --> T[Tail sizing +<br/>wing position]
+  C --> T
+  T --> G
+  A --> F[Performance<br/>climb, cruise, range, TO/LDG]
+  P --> F
+  W --> F
+  F --> O[Trade studies<br/>wing carpet, engines, tails,<br/>Monte Carlo]
+  G --> X[3-D model<br/>Fusion, viewer, renders]
+  H[Hansa-NG, Aquila, DV20<br/>published data] -. calibrate & validate .-> W
+  H -.-> F
+```
+
+The loop `geometry → mass → CG → tail/wing position → geometry` repeats until it converges (`eidolon/design.py`).
+
+## The studies
+
+| # | Study | Main output |
+|---|---|---|
+| 01 | Mass estimation | bottom-up mass, class allowance, leave-one-out, mass distribution |
+| 02 | Calibrate on Hansa-NG | drag and climb factors, validation against 6 published numbers |
+| 03 | Airfoil selection | section geometry and polars |
+| 04 | Wing lifting line | span loading, stall progression, washout, drooped LE |
+| 05 | Wing sizing | area × span carpet of closed aircraft |
+| 06 | Drag build-up | component drag areas, waterfall vs Hansa-NG |
+| 07 | Propeller | BEMT, 2 vs 3 blades |
+| 08 | Engine trade | 5 engines, each in its own closed airframe |
+| 09 | Tail configuration | 6 tails, spin and deep-stall screens, tail height, elevator chord |
+| 10 | Stability and CG | neutral point, CG envelope, tail sizing criteria |
+| 11 | Performance | head-to-head, power curves, payload-range |
+| 12 | V-n diagram | CS-23 manoeuvre and gust envelope |
+| 13 | Landing gear | leaf-spring material trade, piezo assessment |
+| 14 | Sensitivity | Monte Carlo (pessimistic and neutral), tornado |
+| 15 | Hybrid boost | hot-day take-off and climb with electric boost |
+| 16 | 3-D geometry | Fusion script data, STL, viewer bundle, renders, three-view |
+
+## Run it
+
+```bash
+pip install -r requirements.txt      # numpy >= 2, matplotlib, pytest
+python3 -m pytest -q                 # 14 verification tests
+python3 run_all.py                   # all 16 studies, about 4 minutes; figures land in results/
+python3 run_all.py 05 09             # just the wing carpet and the tail trade
+```
+
+The 3-D model is regenerated by study 16 ([docs/CAD.md](docs/CAD.md)):
+- `cad/fusion/Eidolon/` — a Fusion 360 script that lofts every body as a parametric solid
+- `cad/generated/*.stl` — one mesh per body
+- `docs/viewer/` — an interactive web viewer. Enable GitHub Pages on `/docs` to publish it.
 
 ## Repository map
 
 ```text
-.
-├── README.md
-├── docs/
-│   ├── requirements.md
-│   └── aerodynamics.md
-├── scripts/
-│   ├── constraint_analysis.py
-│   ├── propulsion_bemt.py
-│   └── fetch_airfoils.py
-├── results/
-│   ├── constraints/
-│   └── aerodynamics/naca63415/
-└── xflr5/
-    ├── naca63415.dat
-    └── projects/main.xfl
+eidolon/            the design toolkit (one module per discipline, equations in each docstring)
+studies/            16 numbered studies; each writes figures + CSV/JSON into results/<study>/
+results/            every figure and table in this README, regenerated by run_all.py
+docs/               requirements, design decisions, methods & validation, CAD, Q&A, concepts
+docs/viewer/        interactive 3-D viewer (three.js), loads model.json + specs.json
+cad/                Fusion 360 script + geometry; cad/generated/ = STL from the design closure
+xflr5/              airfoil coordinates and XFLR5 projects (source data for the wing)
+scripts/            first-iteration scripts (constraint sketch, BEMT, landing screen), kept for history
+tests/              verification tests (ISA, lifting-line textbook cases, momentum bound, spar sizing, closure)
 ```
 
-The tree above describes the intended organization; not every path is guaranteed to exist in every checkout yet.
+## Gallery
 
-## Reproducibility
+| | |
+|---|---|
+| ![](results/01_mass/mass_estimation.png) | ![](results/05_wing_sizing/wing_carpet.png) |
+| ![](results/09_tail/tail_configurations.png) | ![](results/04_wing/leading_edge_cuff.png) |
+| ![](results/06_drag/drag_waterfall.png) | ![](results/08_engine_trade/engine_trade.png) |
+| ![](results/11_performance/power_and_climb.png) | ![](results/12_vn/vn_diagram.png) |
+| ![](results/16_geometry/render_rear.png) | ![](results/16_geometry/render_top.png) |
 
-Python dependencies for the constraint script are NumPy and Matplotlib.
+![Three-view](results/16_geometry/three_view.png)
 
-From the repository root:
+## Engineering principles we kept to
 
-```bash
-python3 scripts/constraint_analysis.py
-```
+- Requirements are not results. Assumptions are tagged `[A]` in the code where they are made.
+- Every figure carries its source and method in a footer.
+- A model is believed only as far as it has been checked (see `tests/` and studies 01-02).
+- Comparisons use identical models and conditions for both aircraft.
+- Unknowns are named and given a spread, not hidden in a factor.
+- When the analysis disagreed with an earlier choice (wing span, tail size, piezo damping, BEMT efficiency, 25 L tank), the analysis won and the change is recorded.
 
-This generates:
+## References
 
-- `results/constraints/constraint_analysis.png`
-- `results/constraints/constraint_values.csv`
-
-An optional propeller-efficiency scenario can be run explicitly, for example:
-
-```bash
-python3 scripts/constraint_analysis.py --prop-eff 0.75
-```
-
-The supplied efficiency is a scenario input only; it is not validated and should not be used to select an engine without further analysis.
-
-## Engineering principles
-
-- Requirements are not results.
-- Assumptions are not measurements.
-- A converged simulation is not automatically a validated model.
-- Comparisons must use compatible conditions and documented settings.
-- Changes to baseline assumptions must be recorded and propagated to dependent calculations and figures.
-
-See [`docs/requirements.md`](docs/requirements.md) for the current source-of-truth requirements and assumption register.
+- CSIR-NAL, *Hansa-NG* brochure (2020), nal.res.in
+- D. P. Raymer, *Aircraft Design: A Conceptual Approach*, 6th ed., AIAA, 2018
+- E. Torenbeek, *Synthesis of Subsonic Airplane Design*, Delft UP, 1982
+- J. D. Anderson, *Fundamentals of Aerodynamics*, 6th ed., McGraw-Hill
+- I. H. Abbott & A. E. von Doenhoff, *Theory of Wing Sections*, Dover, 1959
+- S. Gudmundsson, *General Aviation Aircraft Design*, 2nd ed., Elsevier, 2022
+- B. W. McCormick, *Aerodynamics, Aeronautics and Flight Mechanics*, Wiley
+- T. H. G. Megson, *Aircraft Structures for Engineering Students*, Elsevier
+- J. S. Bowman Jr., *Summary of spin technology as related to light general-aviation airplanes*, NASA TN D-6575, 1971
+- EASA CS-VLA and CS-23 (Amdt. 4 and earlier load-case paragraphs 23.333-23.473)
+- Rotax 912 iS/iSc and 915 iS data sheets (flyrotax.com); ULPower UL520iS data (ulpower.com)
+- M. Nita & D. Scholz, *Estimating the Oswald factor from basic aircraft geometrical parameters*, DLRK 2012
+- N. W. Hagood & A. von Flotow, *Damping of structural vibrations with piezoelectric materials and passive electrical networks*, J. Sound Vib. 146, 1991
