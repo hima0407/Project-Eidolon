@@ -1,0 +1,36 @@
+{
+  "dimensions": {
+    "length_m": 7.530803721815674,
+    "span_m": 11.488500000000009,
+    "height_m": 2.9096607479971484,
+    "z_ground": -1.295,
+    "y_track": 1.05,
+    "x_main_gear": 2.5850608717134373,
+    "wheelbase": 1.7850608717134373,
+    "triangles": 25270
+  },
+  "parts": [
+    "fuselage",
+    "canopy",
+    "wing_inboard",
+    "wing_outboard_cuffed",
+    "wing_tip",
+    "flap",
+    "wing_te_filler",
+    "aileron",
+    "stabiliser",
+    "stabiliser_tip",
+    "elevator",
+    "fin",
+    "fin_tip",
+    "rudder",
+    "dorsal_fin",
+    "ventral_strake",
+    "spinner",
+    "propeller_blade",
+    "main_gear_leg",
+    "main_wheel_fairing",
+    "nose_gear_leg",
+    "nose_wheel_fairing"
+  ]
+}
