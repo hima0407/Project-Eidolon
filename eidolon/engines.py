@@ -2,7 +2,7 @@
 
 Every number carries a source tag. ``[M]`` = manufacturer data sheet / page,
 ``[W]`` = Wikipedia summary of manufacturer data, ``[A]`` = project assumption
-(no published figure found; sensitivity is tested in studies/08_sensitivity.py).
+(no published figure found; sensitivity is tested in studies/14_sensitivity.py).
 
 BSFC is brake specific fuel consumption at a typical 65-75 % cruise setting.
 For the Rotax engines it is back-calculated from the Operator's Manual fuel-flow
