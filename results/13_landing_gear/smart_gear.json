@@ -1,0 +1,72 @@
+{
+  "limit_sink_speed_ms": 2.4746727393822923,
+  "chosen_material": "S-glass/epoxy UD",
+  "designs": [
+    {
+      "material": "S-glass/epoxy UD",
+      "energy_per_leg_J": 1476.3216128916383,
+      "deflection_m": 0.2676311638092842,
+      "peak_force_N": 11032.509008881158,
+      "load_factor": 3.0000075483149793,
+      "thickness_m": 0.029424824403527904,
+      "root_width_m": 0.08191454153080427,
+      "mass_per_leg_kg": 1.807740750479557,
+      "merit": 4900.0
+    },
+    {
+      "material": "Carbon/epoxy UD (T700)",
+      "energy_per_leg_J": 1476.3216128916383,
+      "deflection_m": 0.2676311638092842,
+      "peak_force_N": 11032.509008881158,
+      "load_factor": 3.0000075483149793,
+      "thickness_m": 0.015132766836100065,
+      "root_width_m": 0.24088381125742342,
+      "mass_per_leg_kg": 2.1187949073907775,
+      "merit": 4180.645161290323
+    },
+    {
+      "material": "E-glass/epoxy UD",
+      "energy_per_leg_J": 1476.3216128916383,
+      "deflection_m": 0.2676311638092842,
+      "peak_force_N": 11032.509008881158,
+      "load_factor": 3.0000075483149793,
+      "thickness_m": 0.028899381110607764,
+      "root_width_m": 0.10808042167899115,
+      "mass_per_leg_kg": 2.2840281482092126,
+      "merit": 3878.2051282051284
+    },
+    {
+      "material": "Aluminium 7075-T6",
+      "energy_per_leg_J": 1476.3216128916383,
+      "deflection_m": 0.2676311638092842,
+      "peak_force_N": 11032.509008881158,
+      "load_factor": 3.0000075483149793,
+      "thickness_m": 0.009768804882458963,
+      "root_width_m": 1.5764855488535716,
+      "mass_per_leg_kg": 16.228150137080483,
+      "merit": 545.8373013884016
+    },
+    {
+      "material": "Spring steel (4340)",
+      "energy_per_leg_J": 1476.3216128916383,
+      "deflection_m": 0.2676311638092842,
+      "peak_force_N": 11032.509008881158,
+      "load_factor": 3.0000075483149793,
+      "thickness_m": 0.00953487341298988,
+      "root_width_m": 0.5871837020061454,
+      "mass_per_leg_kg": 16.48123867877814,
+      "merit": 537.4553363368028
+    }
+  ],
+  "two_leg_spring_mass_kg": 3.615481500959114,
+  "main_gear_in_mass_model_kg (legs at fatigue allowable + wheels, brakes)": 17.34857252083934,
+  "sensor_voltage_at_limit_V": 63.504,
+  "sensor_voltage_at_1ms_V": 25.6615749587363,
+  "harvested_energy_per_hard_landing_uJ (10 cm2 film)": 7.651294172927998,
+  "sensing_system_mass_kg": {
+    "4 PVDF films": 0.006,
+    "shielded cable 3 m": 0.045,
+    "logger + charge amp": 0.03,
+    "total": 0.081
+  }
+}

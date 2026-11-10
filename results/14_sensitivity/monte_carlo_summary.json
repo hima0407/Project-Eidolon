@@ -1,0 +1,31 @@
+{
+  "N": 400,
+  "fuel_burn_change_pct": {
+    "p05": -14.08633530716287,
+    "median": -8.977449215291966,
+    "p95": -3.974700733038268
+  },
+  "P(Eidolon burns less fuel)": 1.0,
+  "range_change_pct": {
+    "p05": -58.198113322451036,
+    "median": -11.718128335369377,
+    "p95": 19.85993494487267
+  },
+  "P(Eidolon flies further with 2 crew)": 0.295,
+  "neutral_priors": {
+    "fuel_burn_change_pct": {
+      "p05": -16.862560989510907,
+      "median": -12.78266420645009,
+      "p95": -8.012923107772746
+    },
+    "P(Eidolon burns less fuel)": 1.0,
+    "range_change_pct": {
+      "p05": -32.19640761443008,
+      "median": 11.819612854987893,
+      "p95": 38.853621345686356
+    },
+    "P(Eidolon flies further with 2 crew)": 0.665
+  },
+  "range_break_even_extra_empty_kg": 4.956825489756522,
+  "range_km_per_kg_empty": 18.099619131484587
+}

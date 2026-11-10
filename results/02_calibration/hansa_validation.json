@@ -1,0 +1,54 @@
+{
+  "Empty mass [kg] (leave-one-out)": {
+    "published": 540.0,
+    "model": 519.9660893665284,
+    "error_pct": -3.7099834506428846,
+    "role": "predicted"
+  },
+  "Max cruise @75% [km/h]": {
+    "published": 200.0,
+    "model": 200.16,
+    "error_pct": 0.0799999999999983,
+    "role": "fitted"
+  },
+  "Max rate of climb [m/s]": {
+    "published": 3.3,
+    "model": 3.29999999999801,
+    "error_pct": -6.030193179812517e-11,
+    "role": "fitted"
+  },
+  "Stall speed, flap 20 [km/h]": {
+    "published": 80.0,
+    "model": 86.34192426966187,
+    "error_pct": 7.927405337077343,
+    "role": "predicted"
+  },
+  "Take-off distance [m]": {
+    "published": 450.0,
+    "model": 405.1396904589237,
+    "error_pct": -9.968957675794728,
+    "role": "predicted"
+  },
+  "Landing distance [m]": {
+    "published": 600.0,
+    "model": 510.641619747776,
+    "error_pct": -14.893063375370662,
+    "role": "predicted"
+  },
+  "Endurance @65%, full fuel [h]": {
+    "published": 6.0,
+    "model": 5.853122862408607,
+    "error_pct": -2.4479522931898887,
+    "role": "predicted"
+  },
+  "Range @75%, full fuel, 45 min res. [km]": {
+    "published": 926.0,
+    "model": 832.7333244838773,
+    "error_pct": -10.071995196125567,
+    "role": "predicted"
+  },
+  "Service ceiling [m]": {
+    "published": ">= 3048 (max operating altitude)",
+    "model": 5492.574309430085
+  }
+}

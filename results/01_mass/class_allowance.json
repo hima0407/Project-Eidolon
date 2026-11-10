@@ -1,0 +1,39 @@
+{
+  "mean_kg": 148.79373961071767,
+  "sd_kg": 11.571530278451139,
+  "loo_rms_kg": 14.172172362685512,
+  "certified_trainers": [
+    "Hansa-NG",
+    "Aquila A210",
+    "Diamond DV20 Katana"
+  ],
+  "gaps_kg": {
+    "Hansa-NG": 162.14968003303204,
+    "Aquila A210": 142.45408073812803,
+    "Diamond DV20 Katana": 141.77745806099296,
+    "Pipistrel Virus SW 100": -53.75945636364406
+  },
+  "leave_one_out": {
+    "Hansa-NG": {
+      "allowance_from_others_kg": 142.1157693995605,
+      "predicted_empty_kg": 519.9660893665284,
+      "published_empty_kg": 540.0,
+      "error_kg": -20.033910633471578,
+      "error_pct": -3.7099834506428846
+    },
+    "Aquila A210": {
+      "allowance_from_others_kg": 151.9635690470125,
+      "predicted_empty_kg": 509.50948830888444,
+      "published_empty_kg": 500.0,
+      "error_kg": 9.509488308884443,
+      "error_pct": 1.9018976617768886
+    },
+    "Diamond DV20 Katana": {
+      "allowance_from_others_kg": 152.30188038558003,
+      "predicted_empty_kg": 515.524422324587,
+      "published_empty_kg": 505.0,
+      "error_kg": 10.524422324587022,
+      "error_pct": 2.0840440246706975
+    }
+  }
+}

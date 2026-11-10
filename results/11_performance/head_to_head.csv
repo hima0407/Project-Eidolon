@@ -1,0 +1,25 @@
+quantity,Hansa-NG (model),Eidolon v1,change_pct
+MTOW [kg],750,750,0
+Empty mass [kg],526.155,530.341,0.795651
+Fuel with 2 x 77 kg + 10 kg [kg],59.8454,55.6591,-6.99527
+Wing area [m2],12.47,13.25,6.25501
+Span [m],10.47,11.5,9.83763
+Aspect ratio,8.79077,9.98113,13.541
+CD0,0.0332399,0.026281,-20.9353
+Oswald e,0.788787,0.757109,-4.01597
+L/D max,12.8,15.0277,17.4044
+Cruise speed @75% 1500 m [km/h],200.16,215.64,7.73381
+Max level speed SL [km/h],213.48,228.6,7.08263
+Power for 200 km/h @1500 m [kW],54.9301,46.0859,-16.1009
+Fuel flow @200 km/h [L/h],18.6915,15.682,-16.1009
+Fuel per 100 km @200 km/h [L],9.34575,7.84101,-16.1009
+"Range @200 km/h, design payload, 45 min reserve [km]",712.851,802.515,12.5782
+"Range @55% power, full tanks, solo [km]",1059.21,1210.47,14.2803
+Max ROC SL [m/s],3.30265,3.69983,12.0261
+Vy [km/h],120.933,126.556,4.64941
+Service ceiling [m],5497.03,6320.44,14.9791
+"Stall, landing flap [km/h]",86.3419,80.9057,-6.29621
+"Stall, clean [km/h]",97.5751,96.112,-1.49948
+Take-off to 15 m [m],405.079,356.742,-11.9329
+Landing from 15 m [m],510.651,481.83,-5.64403
+"Static margin, aft CG [%MAC]",12.3579,12.0011,-2.88691

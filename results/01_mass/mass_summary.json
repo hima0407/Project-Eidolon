@@ -1,0 +1,50 @@
+{
+  "eidolon": {
+    "nominal_kg": 530.3409093635793,
+    "p05": 500.4833617893193,
+    "p50": 530.1819134600402,
+    "p95": 560.3293868573514,
+    "groups": {
+      "Wing": 85.56942318737836,
+      "Tail": 15.66799747081128,
+      "Fuselage": 86.36117657383268,
+      "Landing gear": 29.84857252083934,
+      "Powerplant": 108.6,
+      "Systems & furnishings": 55.5,
+      "Class allowance": 148.79373961071767
+    }
+  },
+  "hansa_model": {
+    "nominal_kg": 526.6440595776857,
+    "published_kg": 540.0
+  },
+  "raymer_cross_check_eidolon_kg": 549.9463433288961,
+  "class_allowance": {
+    "mean": 148.79373961071767,
+    "sd": 11.571530278451139,
+    "loo_rms": 14.172172362685512
+  },
+  "leave_one_out": {
+    "Hansa-NG": {
+      "allowance_from_others_kg": 142.1157693995605,
+      "predicted_empty_kg": 519.9660893665284,
+      "published_empty_kg": 540.0,
+      "error_kg": -20.033910633471578,
+      "error_pct": -3.7099834506428846
+    },
+    "Aquila A210": {
+      "allowance_from_others_kg": 151.9635690470125,
+      "predicted_empty_kg": 509.50948830888444,
+      "published_empty_kg": 500.0,
+      "error_kg": 9.509488308884443,
+      "error_pct": 1.9018976617768886
+    },
+    "Diamond DV20 Katana": {
+      "allowance_from_others_kg": 152.30188038558003,
+      "predicted_empty_kg": 515.524422324587,
+      "published_empty_kg": 505.0,
+      "error_kg": 10.524422324587022,
+      "error_pct": 2.0840440246706975
+    }
+  }
+}

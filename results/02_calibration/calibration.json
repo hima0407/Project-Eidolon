@@ -1,0 +1,7 @@
+{
+  "mass_cal": 1.3522667790976255,
+  "drag_cal": 0.00825076275692936,
+  "climb_cal": 0.8658375879769208,
+  "fitted_on": "Hansa-NG: empty 540 kg, 200 km/h @75% power 1500 m, ROC 3.3 m/s",
+  "source": "CSIR-NAL, Hansa-NG brochure (Jan 2020), nal.res.in"
+}

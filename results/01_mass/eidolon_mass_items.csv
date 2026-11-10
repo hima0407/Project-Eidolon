@@ -1,0 +1,37 @@
+item,group,mass_kg,spread_1sigma,basis
+Wing spar caps (CFRP),Wing,7.94161,0.1,sized from 6.6 g bending/shear
+Wing shear webs,Wing,1.70446,0.12,sized from 6.6 g bending/shear
+Wing skins (sandwich),Wing,48.5658,0.12,areal / allowance
+Wing ribs,Wing,2.55854,0.25,areal / allowance
+Wing rear spar,Wing,2.00257,0.25,sized from 6.6 g bending/shear
+Flaps + ailerons,Wing,9.13014,0.15,areal / allowance
+Wing root fittings,Wing,4.87933,0.3,areal / allowance
+Tank sealing,Wing,3.5,0.3,areal / allowance
+Wing paint,Wing,5.28699,0.2,areal / allowance
+Horizontal tail,Tail,8.25995,0.15,spar sized for tail load at V_A
+Vertical tail,Tail,6.94005,0.15,spar sized for tail load at V_A
+Ventral strake,Tail,0.468,0.2,sandwich panel
+Fuselage shell (sandwich),Fuselage,49.7102,0.12,area x sandwich density
+Tail-cone longerons,Fuselage,0,0.2,bottom-up allowance
+Floor + keel + wing carry-through box,Fuselage,9,0.2,bottom-up allowance
+Bulkheads + firewall,Fuselage,7.5,0.2,bottom-up allowance
+Seat structure (9 g crash loads),Fuselage,6,0.2,bottom-up allowance
+Canopy (PC 3 mm) + frame,Fuselage,9.5,0.2,bottom-up allowance
+Fuselage paint,Fuselage,4.65094,0.2,bottom-up allowance
+Main gear legs (S-glass leaf),Landing gear,8.74857,0.2,sized: CS-23.473 energy
+"Main wheels, tyres, brakes, axles",Landing gear,8.6,0.05,catalogue (5.00-5 wheel + disc brake)
+"Nose gear (leg, fork, wheel, shimmy damper)",Landing gear,8.5,0.15,catalogue-class
+Wheel fairings + leg fairings,Landing gear,4,0.25,composite shells
+Engine (data sheet),Powerplant,70.6,0.03,data sheet
+Propeller + governor,Powerplant,12.5,0.15,allowance
+"Cooling, mount, cowling",Powerplant,15.5,0.15,allowance
+Exhaust + intake + airbox,Powerplant,4,0.2,allowance
+"Fuel system (pumps, lines, valves, gauging)",Powerplant,6,0.2,allowance
+"Flight controls (dual sticks, pedals, pushrods, cables)",Systems & furnishings,9.5,0.15,catalogue / allowance
+"Electrical (battery, wiring, breakers)",Systems & furnishings,12,0.15,catalogue / allowance
+"Avionics (2 EFIS, radio, transponder, ELT, antennas)",Systems & furnishings,11,0.1,catalogue / allowance
+Brake system,Systems & furnishings,1.5,0.2,catalogue / allowance
+Cabin heat + ventilation,Systems & furnishings,2.5,0.25,catalogue / allowance
+"Seats, belts, upholstery, baggage net",Systems & furnishings,15,0.15,catalogue / allowance
+"Instruments, placards, misc. hardware",Systems & furnishings,4,0.3,catalogue / allowance
+Certified-trainer class allowance,Class allowance,148.794,0.0952471,measured on 3 certified trainers (leave-one-out)

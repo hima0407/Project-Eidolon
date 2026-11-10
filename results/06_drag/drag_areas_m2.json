@@ -1,0 +1,34 @@
+{
+  "Hansa-NG": {
+    "Wing": 0.08440594402745269,
+    "Horizontal tail": 0.01873572132239998,
+    "Vertical tail": 0.008958356354209947,
+    "Fuselage": 0.07120891500929241,
+    "Canopy": 0.025,
+    "Landing gear": 0.08356299999999998,
+    "Engine cooling": 0.004903708479509222,
+    "Leakage & protuberances": 0.014838782259643211,
+    "Unmodelled (fitted on Hansa-NG)": 0.10288701157890912
+  },
+  "Eidolon": {
+    "Wing": 0.07132776232398057,
+    "Horizontal tail": 0.01466145979994336,
+    "Vertical tail": 0.01045883028555614,
+    "Fuselage": 0.0686883269119982,
+    "Canopy": 0.025,
+    "Landing gear": 0.026953,
+    "Engine cooling": 0.004903708479509222,
+    "Leading-edge cuff": 0.003974999999999999,
+    "Ventral strake": 0.001556740521402699,
+    "Leakage & protuberances": 0.011376241416119513,
+    "Unmodelled (fitted on Hansa-NG)": 0.10932260652931401
+  },
+  "CD0": {
+    "Hansa-NG": 0.033239890860578714,
+    "Eidolon": 0.02628103217115651
+  },
+  "total_drag_area_m2": {
+    "Hansa-NG": 0.4145014390314165,
+    "Eidolon": 0.3482236762678237
+  }
+}

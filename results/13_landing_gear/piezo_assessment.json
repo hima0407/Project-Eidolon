@@ -1,0 +1,14 @@
+{
+  "landing_energy_per_leg_J": 1476.3216128916383,
+  "mfc_shunt_J": 0.07556975999999999,
+  "full_pzt_shunt_J": 0.6220385497495449,
+  "full_pzt_mass_kg": 0.28014773203535054,
+  "pvdf_harvest_J": 7.651294172927998e-06,
+  "verdict": {
+    "efficiency (energy absorption, stiffness control)": "no: <0.5 % of the landing energy even with full coverage",
+    "safety - hard-landing detection": "yes: sink-rate logging, ~80 g",
+    "safety - structural health monitoring": "yes: PZT wafers as Lamb-wave actuators/sensors find delaminations and impact damage in the composite leaf and its attachment between inspections",
+    "nose-gear shimmy": "marginal: shunted patches add ~1-2 % damping to a mode; a conventional shimmy damper is lighter and certifiable",
+    "energy harvesting": "tens of microjoules: enough to wake a logger, not to power it"
+  }
+}

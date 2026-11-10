@@ -1,0 +1,9 @@
+quantity,published,model,role
+Empty mass [kg] (leave-one-out),540,519.966,predicted
+Max cruise @75% [km/h],200,200.16,fitted
+Max rate of climb [m/s],3.3,3.3,fitted
+"Stall speed, flap 20 [km/h]",80,86.3419,predicted
+Take-off distance [m],450,405.14,predicted
+Landing distance [m],600,510.642,predicted
+"Endurance @65%, full fuel [h]",6,5.85312,predicted
+"Range @75%, full fuel, 45 min res. [km]",926,832.733,predicted

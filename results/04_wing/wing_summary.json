@@ -1,0 +1,56 @@
+{
+  "xflr5_check": {
+    "cl_alpha_per_deg_xflr5_vlm2": 0.08350542499999998,
+    "cl_alpha_per_deg_llt": 0.08759199297057622,
+    "difference_pct": 4.8937754290529565,
+    "alpha0_xflr5": -2.94613503653605,
+    "alpha0_llt": -3.0399999999999996
+  },
+  "rectangular_AR8_e_span": 0.9368472368683667,
+  "twist_+0": {
+    "CLmax_critical_section": 1.3826547883941753,
+    "alpha_stall": 12.350000000000001,
+    "eta_first_stall": 0.5224985647159489,
+    "e_span_cruise": 0.9690909624745833
+  },
+  "twist_-2": {
+    "CLmax_critical_section": 1.3843686978555148,
+    "alpha_stall": 13.25,
+    "eta_first_stall": 0.38268343236508984,
+    "e_span_cruise": 0.9788163554399432
+  },
+  "twist_-4": {
+    "CLmax_critical_section": 1.359060038162572,
+    "alpha_stall": 13.850000000000001,
+    "eta_first_stall": 0.23344536385590547,
+    "e_span_cruise": 0.8791911640374883
+  },
+  "leading_edge_cuff": {
+    "aileron_unstalled_fraction_vs_dalpha": {
+      "-2 deg washout only": {
+        "0.0": 1.0,
+        "1.0": 0.75,
+        "2.0": 0.5,
+        "3.0": 0.375,
+        "4.0": 0.3125,
+        "5.0": 0.25,
+        "6.0": 0.1875,
+        "7.0": 0.125,
+        "8.0": 0.0625
+      },
+      "-2 deg washout + drooped outboard LE": {
+        "0.0": 1.0,
+        "1.0": 1.0,
+        "2.0": 1.0,
+        "3.0": 1.0,
+        "4.0": 0.8125,
+        "5.0": 0.5625,
+        "6.0": 0.4375,
+        "7.0": 0.375,
+        "8.0": 0.3125
+      }
+    },
+    "assumed_cd0_penalty": 0.0003,
+    "assumed_dclmax_outboard": 0.3
+  }
+}
