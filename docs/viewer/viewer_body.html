@@ -1,0 +1,283 @@
+<title>Eidolon v1 Hangar</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a hangar bay - the aircraft fills a wide stage, a spec sheet runs down the right like a type-certificate data sheet. */
+:root {
+  --bg: #eceff1; --stage: #f6f7f8; --panel: #ffffff; --ink: #121820; --ink2: #4b5865; --muted: #7d8994;
+  --line: #d6dce1; --accent: #2a78d6; --rival: #d9602b; --good: #12805a; --bad: #c43c3b;
+  --skin: #f1f1ee; --glass: #2c3b4b; --gear: #c3c9ce; --prop: #2a2d31;
+  --display: "Saira Condensed", "Arial Narrow", "Roboto Condensed", sans-serif;
+  --body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1215; --stage: #13181c; --panel: #171d22; --ink: #e7ecf0; --ink2: #a3afba; --muted: #75818c;
+    --line: #27313a; --accent: #4d94e8; --rival: #ef7a49; --good: #34c08a; --bad: #ef6b6a;
+    --skin: #e4e5e2; --glass: #1d2a37; --gear: #9aa3ab; --prop: #1a1c1f; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1215; --stage: #13181c; --panel: #171d22; --ink: #e7ecf0; --ink2: #a3afba; --muted: #75818c;
+  --line: #27313a; --accent: #4d94e8; --rival: #ef7a49; --good: #34c08a; --bad: #ef6b6a;
+  --skin: #e4e5e2; --glass: #1d2a37; --gear: #9aa3ab; --prop: #1a1c1f; color-scheme: dark;
+}
+html, body { background: var(--bg); color: var(--ink); }
+body { font-family: var(--body); font-size: 15px; line-height: 1.5; }
+.wrap { max-width: 1380px; margin: 0 auto; padding-block: 20px 36px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+header { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 18px; margin-bottom: 14px; }
+h1 { font-family: var(--display); font-weight: 700; font-size: clamp(34px, 5vw, 54px); letter-spacing: 0.04em;
+  line-height: 1; margin: 0; text-transform: uppercase; }
+h1 span { color: var(--accent); }
+.sub { color: var(--ink2); font-size: 14.5px; max-width: 62ch; text-wrap: balance; }
+.grid { display: grid; grid-template-columns: minmax(0, 1fr) 370px; gap: 16px; align-items: start; }
+.stage { position: relative; background: var(--stage); border: 1px solid var(--line); border-radius: 10px;
+  overflow: hidden; height: min(74vh, 660px); min-height: 380px; }
+#c { display: block; width: 100%; height: 100%; touch-action: none; }
+.hud { position: absolute; left: 12px; right: 12px; bottom: 12px; display: flex; flex-wrap: wrap; gap: 8px;
+  justify-content: space-between; pointer-events: none; }
+.hud > div { display: flex; flex-wrap: wrap; gap: 6px; pointer-events: auto; }
+.tag { position: absolute; top: 12px; left: 14px; font-family: var(--mono); font-size: 11.5px; color: var(--muted);
+  letter-spacing: 0.04em; }
+button.chip { font: 500 12.5px var(--body); color: var(--ink2); background: var(--panel); border: 1px solid var(--line);
+  border-radius: 999px; padding: 6px 12px; cursor: pointer; }
+button.chip[aria-pressed="true"] { color: var(--panel); background: var(--ink); border-color: var(--ink); }
+button.chip:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.loading { position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--mono);
+  font-size: 13px; color: var(--muted); }
+aside { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.sheet { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; }
+.sheet h2 { font-family: var(--display); font-weight: 600; font-size: 21px; letter-spacing: 0.05em; text-transform: uppercase;
+  margin: 0 0 4px; }
+.sheet p.k { margin: 0 0 12px; color: var(--muted); font-size: 12.5px; }
+.legend { display: flex; gap: 14px; font-size: 12px; color: var(--ink2); margin-bottom: 10px; }
+.legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
+.row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 10px; padding: 9px 0; border-top: 1px solid var(--line); }
+.row:first-of-type { border-top: 0; }
+.row .n { font-size: 13px; color: var(--ink2); min-width: 0; }
+.row .d { font: 500 12px var(--mono); padding: 1px 7px; border-radius: 999px; align-self: start; font-variant-numeric: tabular-nums; }
+.d.good { color: var(--good); background: color-mix(in srgb, var(--good) 13%, transparent); }
+.d.bad { color: var(--bad); background: color-mix(in srgb, var(--bad) 13%, transparent); }
+.bars { grid-column: 1 / -1; display: grid; gap: 3px; }
+.bar { display: grid; grid-template-columns: 56px minmax(0, 1fr) 64px; align-items: center; gap: 8px;
+  font: 11.5px var(--mono); color: var(--muted); font-variant-numeric: tabular-nums; }
+.bar .t { height: 6px; background: color-mix(in srgb, var(--line) 70%, transparent); border-radius: 3px; overflow: hidden; }
+.bar .t b { display: block; height: 100%; border-radius: 3px; }
+.bar .v { text-align: right; color: var(--ink2); }
+dl { margin: 0; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 7px 14px; font-size: 13px; }
+dt { color: var(--muted); }
+dd { margin: 0; font-family: var(--mono); font-size: 12.5px; text-align: right; font-variant-numeric: tabular-nums; }
+.foot { font-size: 12px; color: var(--muted); line-height: 1.55; }
+@media (max-width: 960px) {
+  .grid { grid-template-columns: minmax(0, 1fr); }
+  .stage { height: 58vh; min-height: 320px; }
+}
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>Eidolon <span>v1</span></h1>
+    <div class="sub">Two-seat light trainer, 750 kg, preliminary design. Every surface is generated from the design closure: real NACA 63-415/63-412 coordinates, drooped outboard leading edge, sized tail with ventral strake, CG-placed wing, separate flaps, ailerons, elevators and rudder.</div>
+  </header>
+  <div class="grid">
+    <section class="stage" aria-label="Interactive 3-D model">
+      <canvas id="c"></canvas>
+      <div class="tag" id="tag">ISO VIEW · DRAG TO ORBIT · SCROLL TO ZOOM</div>
+      <div class="loading" id="loading">loading geometry…</div>
+      <div class="hud">
+        <div role="group" aria-label="Camera">
+          <button class="chip" id="v-iso" aria-pressed="true">Iso</button>
+          <button class="chip" id="v-front" aria-pressed="false">Front</button>
+          <button class="chip" id="v-side" aria-pressed="false">Side</button>
+          <button class="chip" id="v-top" aria-pressed="false">Top</button>
+          <button class="chip" id="spin" aria-pressed="true">Spin prop</button>
+        </div>
+        <div role="group" aria-label="Components" id="parts"></div>
+      </div>
+    </section>
+    <aside>
+      <div class="sheet">
+        <h2>Against Hansa-NG</h2>
+        <p class="k">Both aircraft run through the same calibrated models (studies/01, 09).</p>
+        <div class="legend"><span><i style="background:var(--accent)"></i>Eidolon v1</span><span><i style="background:var(--rival)"></i>Hansa-NG (model)</span></div>
+        <div id="compare"></div>
+      </div>
+      <div class="sheet">
+        <h2>Data sheet</h2>
+        <dl id="geom"></dl>
+      </div>
+      <p class="foot">Preliminary conceptual design: model outputs, not flight-test data. Hansa-NG inputs from the CSIR-NAL brochure (2020); unpublished details are generic assumptions. Source: github.com/hima0407/Project-Eidolon</p>
+    </aside>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script>
+(function () {
+  const LOWER_BETTER = ["Fuel", "Take-off", "Stall", "Empty", "CD0"];
+  const short = n => n.replace(" @200 km/h, design payload, 45 min reserve", " (2 crew)").replace(" @200 km/h", " @ 200 km/h")
+                       .replace(" @75% 1500 m", " @ 75 %").replace(" SL", "").replace(" to 15 m", " to 15 m");
+  const fmt = v => Math.abs(v) < 0.1 ? v.toFixed(4) : Math.abs(v) < 20 ? v.toFixed(2) : Math.round(v).toString();
+
+  function renderSpecs(s) {
+    const box = document.getElementById("compare");
+    box.innerHTML = "";
+    s.compare.forEach(r => {
+      const d = 100 * (r.eidolon - r.hansa) / r.hansa;
+      const lower = LOWER_BETTER.some(k => r.name.startsWith(k));
+      const better = lower ? d < 0 : d > 0;
+      const max = Math.max(r.eidolon, r.hansa) * 1.05;
+      const row = document.createElement("div");
+      row.className = "row";
+      row.innerHTML = `<div class="n">${short(r.name)}</div><div class="d ${better ? "good" : "bad"}">${d > 0 ? "+" : ""}${d.toFixed(0)}%</div>
+        <div class="bars">
+          <div class="bar"><span>Eidolon</span><span class="t"><b style="width:${100 * r.eidolon / max}%;background:var(--accent)"></b></span><span class="v">${fmt(r.eidolon)}</span></div>
+          <div class="bar"><span>Hansa</span><span class="t"><b style="width:${100 * r.hansa / max}%;background:var(--rival)"></b></span><span class="v">${fmt(r.hansa)}</span></div>
+        </div>`;
+      box.appendChild(row);
+    });
+    const dl = document.getElementById("geom");
+    dl.innerHTML = Object.entries(s.geometry).map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("");
+  }
+  fetch("specs.json").then(r => r.json()).then(renderSpecs).catch(() => {
+    document.getElementById("compare").textContent = "Spec data (specs.json) could not be loaded.";
+  });
+
+  // ---------------------------------------------------------------- 3-D
+  const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+  const canvas = document.getElementById("c");
+  const stage = canvas.parentElement;
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, preserveDrawingBuffer: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(32, 1, 0.05, 200);
+  const controls = new THREE.OrbitControls(camera, canvas);
+  controls.enableDamping = true; controls.dampingFactor = 0.08;
+  controls.minDistance = 4; controls.maxDistance = 40;
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  controls.autoRotate = !reduce; controls.autoRotateSpeed = 0.55;
+  controls.addEventListener("start", () => { controls.autoRotate = false; });
+
+  scene.add(new THREE.HemisphereLight(0xffffff, 0x8a949c, 0.85));
+  const sun = new THREE.DirectionalLight(0xffffff, 0.95);
+  sun.position.set(-6, 12, 7); sun.castShadow = true;
+  sun.shadow.mapSize.set(2048, 2048);
+  Object.assign(sun.shadow.camera, { left: -8, right: 8, top: 8, bottom: -8, near: 1, far: 40 });
+  scene.add(sun);
+  const fill = new THREE.DirectionalLight(0xffffff, 0.25); fill.position.set(8, 3, -6); scene.add(fill);
+
+  // aircraft frame: x aft, y starboard, z up  ->  three.js y up
+  const plane = new THREE.Group();
+  plane.rotation.x = -Math.PI / 2;
+  scene.add(plane);
+  const ground = new THREE.Mesh(new THREE.PlaneGeometry(60, 60), new THREE.ShadowMaterial({ opacity: 0.16 }));
+  ground.rotation.x = -Math.PI / 2; ground.receiveShadow = true;
+  scene.add(ground);
+  const grid = new THREE.GridHelper(30, 30);
+  grid.material.transparent = true; grid.material.opacity = 0.22;
+  scene.add(grid);
+
+  // chip groups -> mesh parts (names from eidolon/oml.py)
+  const GROUPS = {
+    "Wing": ["wing_inboard", "wing_outboard_cuffed", "wing_tip", "flap", "wing_te_filler", "aileron"],
+    "Tail": ["stabiliser", "stabiliser_tip", "elevator", "fin", "fin_tip", "rudder", "dorsal_fin", "ventral_strake"],
+    "Fuselage": ["fuselage", "livery_stripe"], "Canopy": ["canopy"],
+    "Propeller": ["propeller_blade", "spinner"],
+    "Gear": ["main_gear_leg", "main_wheel_fairing", "nose_gear_leg", "nose_wheel_fairing"]};
+  const FINISH = { canopy: [0.08, 0.3], propeller_blade: [0.55, 0.15], main_gear_leg: [0.45, 0.3], nose_gear_leg: [0.45, 0.3] };
+  const meshes = {};
+  let Z_GROUND = -1.295;
+  const prop = new THREE.Group(); plane.add(prop);
+
+  function themeColors() {
+    scene.background = new THREE.Color(css("--stage"));
+    grid.material.color = new THREE.Color(css("--line"));
+  }
+  function decode(b64) {
+    const bin = atob(b64), buf = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; i++) buf[i] = bin.charCodeAt(i);
+    return new Float32Array(buf.buffer);
+  }
+  fetch("model.json").then(r => r.json()).then(bundle => {
+    Object.entries(bundle.parts).forEach(([key, p]) => {
+      const geo = new THREE.BufferGeometry();
+      geo.setAttribute("position", new THREE.BufferAttribute(decode(p.b64), 3));
+      geo.computeVertexNormals();
+      const [rough, metal] = FINISH[key] || [0.38, 0.05];
+      const mat = new THREE.MeshStandardMaterial({ color: p.color, roughness: rough, metalness: metal, side: THREE.DoubleSide,
+        flatShading: false, polygonOffset: key === "livery_stripe", polygonOffsetFactor: -2 });
+      const m = new THREE.Mesh(geo, mat);
+      m.castShadow = true; m.receiveShadow = true;
+      meshes[key] = m;
+      (key === "propeller_blade" || key === "spinner" ? prop : plane).add(m);
+    });
+    if (bundle.z_ground) { Z_GROUND = bundle.z_ground; plane.position.y = -Z_GROUND; }
+    document.getElementById("loading").hidden = true;
+  }).catch(() => { document.getElementById("loading").textContent = "Could not load model.json"; });
+  // centre the aircraft: x from 0..7.6 -> shift so CG-ish sits at origin; ground plane at wheel bottom
+  plane.position.set(-3.4, -Z_GROUND, 0);
+  ground.position.y = 0; grid.position.y = 0.001;
+
+  const VIEWS = { iso: [-8.2, 4.4, 9.4], front: [-12.5, 0.9, 0.0001], side: [0.0001, 1.2, 13.5], top: [0.0001, 15, 0.0002] };
+  const target = new THREE.Vector3(0, 0.9, 0);
+  controls.target.copy(target);
+  camera.position.set(...VIEWS.iso);
+  let tween = null;
+  function go(name) {
+    controls.autoRotate = false;
+    document.querySelectorAll('[id^="v-"]').forEach(b => b.setAttribute("aria-pressed", String(b.id === "v-" + name)));
+    document.getElementById("tag").textContent = name.toUpperCase() + " VIEW · DRAG TO ORBIT · SCROLL TO ZOOM";
+    const from = camera.position.clone(), to = new THREE.Vector3(...VIEWS[name]);
+    if (reduce) { camera.position.copy(to); return; }
+    tween = { from, to, t: 0 };
+  }
+  ["iso", "front", "side", "top"].forEach(v => document.getElementById("v-" + v).addEventListener("click", () => go(v)));
+  let spinning = !reduce;
+  const spinBtn = document.getElementById("spin");
+  spinBtn.setAttribute("aria-pressed", String(spinning));
+  spinBtn.addEventListener("click", () => { spinning = !spinning; spinBtn.setAttribute("aria-pressed", String(spinning)); });
+
+  const partsBox = document.getElementById("parts");
+  Object.entries(GROUPS).forEach(([label, keys]) => {
+    const b = document.createElement("button");
+    b.className = "chip"; b.id = "p-" + label.toLowerCase(); b.textContent = label; b.setAttribute("aria-pressed", "true");
+    b.addEventListener("click", () => {
+      const on = b.getAttribute("aria-pressed") !== "true";
+      b.setAttribute("aria-pressed", String(on));
+      keys.forEach(k => { if (meshes[k]) meshes[k].visible = on; });
+    });
+    partsBox.appendChild(b);
+  });
+
+  function resize() {
+    const w = stage.clientWidth, h = stage.clientHeight;
+    renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix();
+  }
+  new ResizeObserver(resize).observe(stage); resize();
+  themeColors();
+  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", themeColors);
+  new MutationObserver(themeColors).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+
+  const clock = new THREE.Clock();
+  (function loop() {
+    const dt = clock.getDelta();
+    if (tween) {
+      tween.t = Math.min(1, tween.t + dt / 0.9);
+      const e = tween.t < 0.5 ? 4 * tween.t ** 3 : 1 - (-2 * tween.t + 2) ** 3 / 2;
+      camera.position.lerpVectors(tween.from, tween.to, e);
+      if (tween.t >= 1) tween = null;
+    }
+    if (spinning) prop.rotation.x += dt * 14;       // propeller axis = aircraft x
+    controls.update();
+    renderer.render(scene, camera);
+    requestAnimationFrame(loop);
+  })();
+})();
+</script>

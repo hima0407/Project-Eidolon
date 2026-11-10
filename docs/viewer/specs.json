@@ -1,0 +1,63 @@
+{
+  "compare": [
+    {
+      "name": "Fuel per 100 km @200 km/h [L]",
+      "eidolon": 7.841007973448624,
+      "hansa": 9.345753980474448
+    },
+    {
+      "name": "Range @200 km/h, design payload, 45 min reserve [km]",
+      "eidolon": 802.514519823328,
+      "hansa": 712.8506626545837
+    },
+    {
+      "name": "Cruise speed @75% 1500 m [km/h]",
+      "eidolon": 215.64000000000001,
+      "hansa": 200.16
+    },
+    {
+      "name": "Max ROC SL [m/s]",
+      "eidolon": 3.699827656953925,
+      "hansa": 3.3026477534520517
+    },
+    {
+      "name": "Take-off to 15 m [m]",
+      "eidolon": 356.7417525644091,
+      "hansa": 405.0793707778396
+    },
+    {
+      "name": "Stall, landing flap [km/h]",
+      "eidolon": 80.90565383381241,
+      "hansa": 86.34192426966187
+    },
+    {
+      "name": "Empty mass [kg]",
+      "eidolon": 530.3409093635793,
+      "hansa": 526.1545579593252
+    },
+    {
+      "name": "L/D max",
+      "eidolon": 15.02771439364376,
+      "hansa": 12.799954373622358
+    },
+    {
+      "name": "CD0",
+      "eidolon": 0.02628103217115651,
+      "hansa": 0.033239890860578714
+    }
+  ],
+  "geometry": {
+    "Span": "11.50 m",
+    "Wing area": "13.25 m\u00b2",
+    "Aspect ratio": "9.98",
+    "Length": "7.53 m",
+    "Height": "2.91 m",
+    "Wing section": "NACA 63-415 \u2192 63-412",
+    "Washout / LE": "-2\u00b0, drooped outboard",
+    "Tail": "conventional, V_h 0.50, ventral strake",
+    "Engine": "Rotax 912 iSc, 73.5 kW",
+    "Propeller": "1.75 m, 3-blade CS",
+    "MTOW / empty": "750 / 530 kg",
+    "Static margin": "12 % MAC (aft CG)"
+  }
+}
