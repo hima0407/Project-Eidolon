@@ -1,0 +1,106 @@
+{
+  "labour_factor": 0.43411526348367,
+  "hansa_vh_kmh": 213.48,
+  "eidolon_vh_kmh": 228.6,
+  "hansa_model_inr_crore": 2.999999999999999,
+  "cases": {
+    "glass": {
+      "total_inr_crore": 3.093024462661886,
+      "vs_glass_pct": 0.0,
+      "items_inr_lakh": {
+        "Engineering & certification": 36.116601509802884,
+        "Tooling": 25.085427090366277,
+        "Carbon one-off (qualification, tooling)": 0.0,
+        "Manufacturing labour": 112.98991115400568,
+        "Quality control": 22.033032675031105,
+        "Materials": 20.448589772710054,
+        "Engine": 21.58992,
+        "Propeller": 12.083166725204546,
+        "Avionics": 18.612,
+        "Product liability": 40.343797339068075
+      },
+      "laminate_m2": 59.71622406883205,
+      "fabric_usd": {
+        "glass": 1125.4597317804637,
+        "carbon": 6529.789953254578
+      }
+    },
+    "infusion": {
+      "total_inr_crore": 3.1893587165239343,
+      "vs_glass_pct": 3.1145648870537057,
+      "items_inr_lakh": {
+        "Engineering & certification": 36.116601509802884,
+        "Tooling": 25.085427090366277,
+        "Carbon one-off (qualification, tooling)": 0.9777777777777779,
+        "Manufacturing labour": 112.98991115400568,
+        "Quality control": 24.23633594253422,
+        "Materials": 25.644400367607275,
+        "Engine": 21.58992,
+        "Propeller": 12.083166725204546,
+        "Avionics": 18.612,
+        "Product liability": 41.600331085094794
+      },
+      "laminate_m2": 59.71622406883205,
+      "fabric_usd": {
+        "glass": 1125.4597317804637,
+        "carbon": 6529.789953254578
+      }
+    },
+    "prepreg": {
+      "total_inr_crore": 3.6617528385178595,
+      "vs_glass_pct": 18.38745159378792,
+      "items_inr_lakh": {
+        "Engineering & certification": 36.116601509802884,
+        "Tooling": 25.085427090366277,
+        "Carbon one-off (qualification, tooling)": 9.777777777777777,
+        "Manufacturing labour": 129.9383978271065,
+        "Quality control": 32.939383849171506,
+        "Materials": 32.2706155264713,
+        "Engine": 21.58992,
+        "Propeller": 12.083166725204546,
+        "Avionics": 18.612,
+        "Product liability": 47.761993545885126
+      },
+      "laminate_m2": 59.71622406883205,
+      "fabric_usd": {
+        "glass": 1125.4597317804637,
+        "carbon": 13059.579906509156
+      }
+    }
+  },
+  "assumptions": {
+    "CPI": 1.41,
+    "INR_per_USD": 88.0,
+    "built": 180,
+    "prototypes": 2,
+    "airframe_fraction": 0.65,
+    "liability": 0.15,
+    "fabric_usd_m2": {
+      "glass": 3.3655,
+      "carbon": 26.035
+    },
+    "process": {
+      "glass": {
+        "fabric_factor": 1.0,
+        "mfg": 1.0,
+        "qc": 1.0,
+        "one_off": 0.0,
+        "extra": 0.0
+      },
+      "infusion": {
+        "fabric_factor": 1.0,
+        "mfg": 1.0,
+        "qc": 1.1,
+        "one_off": 200000.0,
+        "extra": 500.0
+      },
+      "prepreg": {
+        "fabric_factor": 2.0,
+        "mfg": 1.15,
+        "qc": 1.3,
+        "one_off": 2000000.0,
+        "extra": 1500.0
+      }
+    }
+  }
+}
