@@ -3,6 +3,8 @@
 Each entry follows the same pattern: **decision → options considered → evidence → why → what would change our mind.**
 Numbers are from the current `run_all.py` output (files in `results/`). If a number here and a file disagree, the file is right.
 
+D1-D10 were taken on the **first closure**, with glass-fibre sandwich skins (studies 01-16). D13 re-closes the same geometry with carbon sandwich skins, which is the **final aircraft**; D1-D10 still hold for it (the carbon span check is in D13).
+
 | # | Decision | Study |
 |---|---|---|
 | [D1](#d1-mission-mtow-and-certification-basis) | 750 kg, 2 seats, CS-VLA envelope, +4.4 g utility loads | 02, 12 |
@@ -15,6 +17,9 @@ Numbers are from the current `run_all.py` output (files in `results/`). If a num
 | [D8](#d8-engine-rotax-912-isc) | Rotax 912 iSc | 08 |
 | [D9](#d9-propeller-175-m-3-blade-constant-speed) | 1.75 m, 3-blade, constant speed | 07 |
 | [D10](#d10-glass-fibre-leaf-spring-gear-with-piezo-health-monitoring) | S-glass leaf-spring gear; piezo for sensing and health monitoring only | 13 |
+| [D11](#d11-structure-checked-at-66-g-tip-deflection-flagged) | Structure checked at 6.6 g; tip deflection flagged | 17 |
+| [D12](#d12-fuselage-length-710-m) | Fuselage body 7.10 m | 19 |
+| [D13](#d13-carbon-sandwich-airframe-for-the-final-aircraft) | Carbon sandwich airframe, vacuum infusion; cost calibrated on Hansa-NG | 18, 20 |
 
 ---
 
@@ -285,3 +290,75 @@ Carbon is stiffer, but stiffness is the wrong property for a spring. The mass mo
 So piezo is a **safety sensor**, not an energy absorber. In the presentation it is one line, not a slide.
 
 **Next step.** A drop test of a 1:1 leaf with a film bonded, to calibrate volts to sink rate and measure rebound damping.
+
+---
+
+## D11. Structure checked at 6.6 g; tip deflection flagged
+
+**Decision.** Keep the load-sized structure of D2 and check it as a structure, not only as a mass (study 17, `results/17_structures/`).
+
+**Evidence** (first closure, glass skins; the carbon airframe is within 2 %):
+
+| Item | Load case | Result | Status |
+|---|---|---|---|
+| Spar caps (CFRP UD) | 6.6 g bending | at the 550 MPa allowable to 4.4 m; 40 mm² minimum gauge outboard | sized, margin 0 by construction |
+| Shear webs (±45° CFRP) | 6.6 g shear | 1.1 mm at the root; 0.8 mm minimum over 70 % of the span | sized |
+| Root | 6.6 g | shear 22.4 kN, bending 49.7 kN·m, cap force 288 kN (root-fitting design load), spar depth 173 mm | input to fitting design |
+| Wing stiffness | 4.4 g limit | caps-only tip deflection 532 mm = 9.2 % of semispan (E = 125 GPa [A]) | **flag**: 6 % costs about 4.3 kg of cap |
+| Tail cone | tail load 5.3 kN (CL_h 1.0 at V_A, ×1.5) | 16.5 kN·m, 172 MPa in the glass faces vs 250 MPa | margin +0.45, no longerons |
+| Main gear leaf | CS-23.473, 2.47 m/s | 1,476 J per leg, 11.0 kN, n = 3.0 | sized (D10) |
+
+**What it showed.** The wing is skin-driven: of 85.6 kg, the sandwich skins are 48.6 kg (57 %) and the strength-sized spar caps 7.9 kg (9 %). That is why span was cheap (D4) and why the skin laminate is the lever in D13.
+
+**What would change it.** Skin stiffness in the deflection estimate (it is caps-only, so conservative), a torsion and flutter check, and FEA of the spar, carry-through box and fittings.
+
+---
+
+## D12. Fuselage length 7.10 m
+
+**Decision.** Body length 7.10 m (7.5 m with spinner), maximum section 1.16 × 1.28 m around a 1.07 m cabin.
+
+**Physics.** Fuselage drag is C_f × FF × S_wet with Torenbeek's wetted area S_wet = πDL(1 − 2/f)^(2/3)(1 + 1/f²) and Raymer's form factor FF = 1 + 60/f³ + f/400, f = L/D. A shorter body has less skin but a bluffer shape and a shorter tail arm, so a bigger tail; a longer one is the reverse plus more structure. At 7.10 m: f = 5.83, FF = 1.32, S_wet = 21.1 m², body drag area 0.069 m² (+0.025 m² canopy, together 27 % of the parasite drag area).
+
+**Evidence** (study 19, `results/19_fuselage/fuselage_trade.png`). Eight bodies, 6.5-7.9 m, each re-closed (tail re-sized, wing moved, mass and drag recomputed); cabin and stations fixed:
+
+| Length | 6.5 | 6.7 | 6.9 | **7.1** | 7.3 | 7.5 | 7.7 | 7.9 m |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| L/100 km | 7.926 | 7.883 | 7.860 | **7.841** | 7.839 | 7.841 | 7.845 | 7.851 |
+| Range, km | 810 | 817 | 812 | **803** | 782 | 760 | 736 | 712 |
+| HT area, m² | 2.46 | 2.15 | 1.96 | **1.79** | 1.72 | 1.66 | 1.61 | 1.56 |
+
+**Why.** Fuel burn is flat from 7.1 to 7.5 m (within 0.03 %) and rises fast below 7 m as the tail grows. 7.10 m is the shortest body at the fuel-burn minimum, the same objective as the wing carpet. Range peaks at 6.7 m in glass, but with the carbon airframe (D13) the tank is full and range is no longer mass-limited.
+
+**Cabin and CG.** Seats at 2.25 m sit almost on the CG (2.27-2.29 m for every loading), so the CG travels only 1.6 % MAC; that is what lets the tail be V_h 0.50 instead of the textbook 0.70.
+
+---
+
+## D13. Carbon sandwich airframe for the final aircraft
+
+**Decision.** Build the skins, ribs, control surfaces, fuselage shell and cowling as carbon/foam sandwich by vacuum infusion, keeping the v1 geometry. Spar caps were already carbon; the gear stays S-glass (D10).
+
+**Laminate** (`eidolon/structures.py`, `AIRFRAME`). Glass: 2 + 2 plies of 200 g/m² glass on 5 mm foam, 2.05 kg/m² (wing). Carbon: 2 plies of 160-200 g/m² outside (impact side), 1 inside, same core, 1.53 kg/m², keeping certified-trainer thicknesses rather than light-sport ones. Tail 1.55 → 1.20, cabin 2.60 → 2.00, cone 2.10 → 1.60, control surfaces 3.1 → 2.5 kg/m². Carbon adds 2.5 kg for lightning protection over the tank bays, electrical bonding and glass antenna windows.
+
+**Evidence** (study 20, `results/20_materials/`):
+
+| At 750 kg MTOW | Glass skins | **Carbon skins** |
+|---|---:|---:|
+| Empty mass | 530 kg | **500 kg** (wing 85.6 → 71.2, fuselage 86.4 → 73.7, tail 15.7 → 13.6) |
+| Useful load | 220 kg | **250 kg** |
+| Fuel with 2 × 77 kg + 10 kg | 55.7 kg | **72.0 kg (tank full)** |
+| Range, 2 × 77 kg + 10 kg | 803 km | **1,098 km** |
+| Range, 2 × 90 kg + 10 kg | 334 km | **884 km** |
+| Mass growth before the range lead over Hansa-NG goes | 5 kg | **35 kg** |
+| Fuel per 100 km at 200 km/h | 7.84 L | 7.85 L |
+
+Re-closing also re-sizes the tail: the lighter airframe makes the crew a larger share of the mass, so the CG range widens from 1.6 to 2.8 % MAC and the horizontal tail grows from 1.79 to 1.87 m² (V_h 0.525). Static margin 12.0-14.9 %, TDPF 496 × 10⁻⁶, nose-wheel lift at 86 km/h: every screen of D6 still passes.
+
+Carbon buys payload, range and margin, not speed: the wing is still sized by stall at 750 kg, so drag does not change. With carbon mass the wing carpet's fuel optimum moves slightly outboard (12.0 m span: 7.817 vs 7.852 L/100 km, −0.4 %), too small to redo the wing.
+
+**Cost** (study 18, `eidolon/cost.py`). Gudmundsson's Eastlake GA cost model, one labour factor fitted so the same model gives Hansa-NG its reported ₹3.0 crore, 180 aircraft over five years. Glass ₹3.09 crore; **carbon by infusion ₹3.19 crore (+3 %)**: fabric at £20.50/m² vs £2.65/m² (+₹5.2 lakh of material), +10 % inspection (ultrasonic NDI, because carbon hides impact damage) and ₹1.8 crore of one-off material qualification over the run. Labour hours are held at the glass airframe size. Prepreg and oven cure would be ₹3.66 crore (+18 %). Per kilogram of useful load: Hansa-NG ₹1.43 lakh, glass ₹1.41 lakh, **carbon ₹1.27 lakh**; per km of range: ₹42,000, ₹38,500, **₹29,000**.
+
+**Caveats.** The 148.8 kg class allowance was measured on glass trainers and is left unchanged (if its structural part shrinks too, empty mass would be about 488 kg; not claimed). Cost is a class-level estimate, not a quote. Carbon needs lightning protection, galvanic isolation at aluminium fittings and white paint for the Indian ramp; impact damage can be invisible, which makes the PZT monitoring of D10 more valuable.
+
+**What would change it.** Supplier quotes, a real layup schedule and a first-article weighing; a carbon re-run of the Monte Carlo (study 14).
+

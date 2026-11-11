@@ -21,29 +21,36 @@ Eidolon then goes through the **identical** models, so whatever bias is left mos
 
 ![Model check on Hansa-NG](results/02_calibration/hansa_validation.png)
 
-## Eidolon v1 against the Hansa-NG
+## Eidolon against the Hansa-NG
 
-| Same models, same calibration | Hansa-NG | **Eidolon v1** | Change |
-|---|---:|---:|---:|
-| Fuel per 100 km at 200 km/h | 9.35 L | **7.84 L** | **−16 %** |
-| Range at 200 km/h, 2 × 77 kg + 10 kg, 45-min reserve | 713 km | **803 km** | +13 % |
-| Cruise speed at 75 % power, 1500 m | 200 km/h | **216 km/h** | +8 % |
-| Max rate of climb, sea level | 3.30 m/s | **3.70 m/s** | +12 % |
-| Take-off distance to 15 m | 405 m | **357 m** | −12 % |
-| Stall speed, landing flap | 86 km/h* | **81 km/h** | −6 % |
-| L/D max | 12.8 | **15.0** | +17 % |
-| Parasite drag coefficient CD0 | 0.0332 | **0.0263** | −21 % |
-| Empty mass | 526 kg | **530 kg** | +1 % |
-| Spin screen (Bowman TDPF, ≥ 200 × 10⁻⁶) | — | **481 × 10⁻⁶** | passes |
+The design was closed first with glass-fibre sandwich skins (studies 01-16). Study 20 then re-closed the same geometry with **carbon sandwich skins**; that is the final aircraft.
+
+| Same models, same calibration | Hansa-NG | First closure (glass) | **Eidolon, final (carbon)** | Change vs Hansa-NG |
+|---|---:|---:|---:|---:|
+| Fuel per 100 km at 200 km/h | 9.35 L | 7.84 L | **7.85 L** | **−16 %** |
+| Range at 200 km/h, 2 × 77 kg + 10 kg, 45-min reserve | 713 km | 803 km | **1,098 km** | **+54 %** |
+| Range, 2 × 90 kg + 10 kg | — | 334 km | **884 km** | |
+| Cruise speed at 75 % power, 1500 m | 200 km/h | 216 km/h | **215 km/h** | +8 % |
+| Max rate of climb, sea level | 3.30 m/s | 3.70 m/s | **3.70 m/s** | +12 % |
+| Take-off distance to 15 m | 405 m | 357 m | **357 m** | −12 % |
+| Stall speed, landing flap | 86 km/h* | 81 km/h | **81 km/h** | −6 % |
+| L/D max | 12.8 | 15.0 | **15.0** | +17 % |
+| Parasite drag coefficient CD0 | 0.0332 | 0.0263 | **0.0263** | −21 % |
+| Empty mass | 526 kg | 530 kg | **500 kg** | −5 % |
+| Unit cost, model (study 18) | ₹3.00 cr | ₹3.09 cr | **₹3.19 cr** | +6 % |
+| Spin screen (Bowman TDPF, ≥ 200 × 10⁻⁶) | — | 481 × 10⁻⁶ | **496 × 10⁻⁶** | passes |
 
 \*Model value. The model over-predicts Hansa-NG's published 80 km/h by 8 %, so Eidolon's 81 km/h is conservative. It is below the CS-VLA limit of 83 km/h.
+
+Carbon does not change fuel burn: the wing is sized by stall at 750 kg either way. It turns 30 kg of structure into payload and fuel, so the 100 L tank is full with two crew, and it costs about ₹10 lakh more per aircraft. Per kilogram of useful load that is **₹1.27 lakh**, against ₹1.43 lakh for Hansa-NG ([study 20](studies/20_materials_carbon.py)).
 
 **Is the advantage real?** We ran the comparison 800 times in Monte Carlo, with every uncertain assumption drawn wide, once with priors biased against Eidolon and once neutral ([study 14](studies/14_sensitivity.py)).
 
 - **Fuel burn:** Eidolon burns less in **100 %** of samples in both runs (−4 % to −14 % P5-P95, pessimistic).
-- **Range with two crew:** better in **66 %** (neutral) and **30 %** (pessimistic). At a fixed 750 kg, every kilogram of empty mass is a kilogram of fuel, about **18 km** of range, and Eidolon's lead vanishes if its empty mass grows 5 kg beyond the estimate.
+- **Range with two crew, glass first closure:** better in **66 %** (neutral) and **30 %** (pessimistic). At a fixed 750 kg, every kilogram of empty mass is a kilogram of fuel, about **18 km** of range, and the glass aircraft's lead vanished if its empty mass grew 5 kg beyond the estimate.
+- **Range, final carbon airframe:** the lead now survives **35 kg** of mass growth, more than the 30 kg between the P50 and P95 mass estimates (study 20). The Monte Carlo itself is still the glass run; re-running it on the carbon airframe is a next step.
 
-So the fuel-burn advantage is firm; the range advantage is **conditional on hitting the mass estimate**, which makes a weight-tracking budget the first job of the next phase.
+So the fuel-burn advantage is firm, and the carbon airframe turns the range advantage from conditional into a large margin. A weight-tracking budget is still the first job of the next phase.
 
 ![Monte Carlo](results/14_sensitivity/monte_carlo.png)
 
@@ -63,6 +70,9 @@ So the fuel-burn advantage is firm; the range advantage is **conditional on hitt
 | [D8](docs/DESIGN_DECISIONS.md#d8-engine-rotax-912-isc) | **Rotax 912 iSc** (vs 912 ULS, 914, 915 iS, UL520iS) | Each engine re-closed in its own airframe. The DarkAero 1's UL520iS leaves 10 kg of fuel with two crew | study 08 |
 | [D9](docs/DESIGN_DECISIONS.md#d9-propeller-175-m-3-blade-constant-speed) | 1.75 m, 3-blade, constant speed | BEMT checked against the momentum limit; 81 % installed in cruise | study 07 |
 | [D10](docs/DESIGN_DECISIONS.md#d10-glass-fibre-leaf-spring-gear-with-piezo-health-monitoring) | S-glass leaf-spring gear with piezo health monitoring | Lightest spring material (σ²/Eρ); piezo logs every landing, but can absorb only 0.04 % of it | study 13 |
+| [D11](docs/DESIGN_DECISIONS.md#d11-structure-checked-at-66-g-tip-deflection-flagged) | Structure checked at 6.6 g; stiffness flagged | Spar at its allowable, tail cone margin +0.45; wing is skin-driven (57 % skin, 9 % spar caps) | study 17 |
+| [D12](docs/DESIGN_DECISIONS.md#d12-fuselage-length-710-m) | Fuselage body 7.10 m | Shortest body at the fuel-burn minimum of 8 re-closed lengths | study 19 |
+| [D13](docs/DESIGN_DECISIONS.md#d13-carbon-sandwich-airframe-for-the-final-aircraft) | **Carbon sandwich airframe** (vacuum infusion) | −30 kg empty; range 803 → 1,098 km; +3 % unit cost; cheapest per kg of useful load | studies 18, 20 |
 
 Appendix concept: [hybrid take-off boost for 45 °C airfields](docs/hybrid_boost_concept.md) (study 15).
 
@@ -117,13 +127,32 @@ The loop `geometry → mass → CG → tail/wing position → geometry` repeats 
 | 14 | Sensitivity | Monte Carlo (pessimistic and neutral), tornado |
 | 15 | Hybrid boost | hot-day take-off and climb with electric boost |
 | 16 | 3-D geometry | Fusion script data, STL, viewer bundle, renders, three-view |
+| 17 | Structural analysis | wing shear, bending, spar caps, deflection, tail cone, margins (glass and carbon) |
+| 18 | Cost model | Eastlake/Gudmundsson unit cost calibrated on Hansa-NG's price; glass, infusion, prepreg |
+| 19 | Fuselage length | 8 re-closed body lengths, 6.5-7.9 m |
+| 20 | Airframe material | glass vs carbon re-closure, what 30 kg buys, cost efficiency |
+| 21 | Presentation renders | part stills, exploded-view layers, assembly animation (`--animate`) |
+
+### The order we designed it in
+
+The studies are numbered by topic; this is the order the design actually went, and the order of the review presentation:
+
+1. **Airfoils in XFLR5** (03): candidate sections, Reynolds numbers of each flight phase, XFoil batch, NACA 63-415 → 63-412.
+2. **Finite wing** (04, 05, 12, 17): lifting line checked against XFLR5 VLM2, area × span carpet, washout, drooped leading edge, V-n loads, spar sizing.
+3. **Propeller and engine** (07, 08): BEMT, 2 vs 3 blades, five engines in their own closed airframes.
+4. **Tail and stability** (09, 10): neutral point, six tails, spin screen, elevator chord.
+5. **Landing gear** (13): leaf spring sized by landing energy; piezo for sensing and health monitoring.
+6. **Whole-aircraft drag and mass** (06, 01, 02): component build-up; bottom-up mass with a measured class allowance.
+7. **Fuselage** (19, 17): layout around the CG, drag physics, length trade, tail-cone bending.
+8. **Materials and cost** (20, 18): carbon sandwich airframe adopted; cost calibrated on Hansa-NG.
+9. **The aircraft** (11, 14, 16, 21): performance, Monte Carlo, CAD and renders.
 
 ## Run it
 
 ```bash
 pip install -r requirements.txt      # numpy >= 2, matplotlib, pytest
-python3 -m pytest -q                 # 14 verification tests
-python3 run_all.py                   # all 16 studies, about 4 minutes; figures land in results/
+python3 -m pytest -q                 # 16 verification tests
+python3 run_all.py                   # all 21 studies, about 7 minutes; figures land in results/
 python3 run_all.py 05 09             # just the wing carpet and the tail trade
 ```
 
@@ -136,7 +165,7 @@ The 3-D model is regenerated by study 16 ([docs/CAD.md](docs/CAD.md)):
 
 ```text
 eidolon/            the design toolkit: a Python package, one module per discipline (models only, nothing runs on import)
-studies/            the 16 numbered analyses that use it; each writes into results/<study>/
+studies/            the 21 numbered analyses that use it; each writes into results/<study>/
 run_all.py          runs every study in order
 results/            every figure and table, regenerated by run_all.py
 tests/              verification tests (ISA, lifting-line textbook cases, momentum bound, spar sizing, closure)
@@ -156,6 +185,12 @@ archive/            first-iteration scripts and their results, and early concept
 | ![](results/06_drag/drag_waterfall.png) | ![](results/08_engine_trade/engine_trade.png) |
 | ![](results/11_performance/power_and_climb.png) | ![](results/12_vn/vn_diagram.png) |
 | ![](results/16_geometry/render_rear.png) | ![](results/16_geometry/render_top.png) |
+| ![](results/17_structures/wing_loads.png) | ![](results/20_materials/glass_vs_carbon.png) |
+| ![](results/19_fuselage/fuselage_trade.png) | ![](results/18_cost/cost_carbon.png) |
+
+Assembly animation, rendered by the pipeline: [results/21_renders/assembly.mp4](results/21_renders/assembly.mp4)
+
+![Assembled](results/21_renders/assembly_still.png)
 
 ![Three-view](results/16_geometry/three_view.png)
 
