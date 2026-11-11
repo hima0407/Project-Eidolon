@@ -69,6 +69,7 @@ class Aircraft:
     ventral_strake_m2: float = 0.0     # ventral fin/strake side area (spin damping)
     cone_top_z: float = 0.22           # tail-cone top height at the tail [m]
     le_cuff: bool = False              # drooped outboard leading edge (spin resistance), +3 drag counts [A]
+    airframe: str = "glass"            # sandwich laminate set: "glass" (first closure) | "carbon" (final, study 20)
     notes: dict = field(default_factory=dict)
 
     # --- convenience ---

@@ -61,6 +61,16 @@ def eidolon_v1(engine_key: str | None = None, **kw) -> Closed:
     return close(eidolon(**cfg), **kw)
 
 
+def eidolon_final(engine_key: str | None = None, **kw) -> Closed:
+    """The final aircraft: v1 geometry with the carbon sandwich airframe (study 20)."""
+    cfg = dict(BASELINE)
+    if engine_key:
+        cfg["engine_key"] = engine_key
+    ac = eidolon(**cfg)
+    ac.airframe = "carbon"
+    return close(ac, **kw)
+
+
 def hansa_closed(**kw) -> Closed:
     """Hansa-NG: geometry as published / assumed, tail not re-sized (it is a real aircraft)."""
     ac = hansa_ng()

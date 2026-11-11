@@ -44,6 +44,23 @@ MAT = {
     "paint": 0.22,                                  # kg/m2 filler + primer + paint
 }
 T_WEB_MIN = 0.8e-3
+
+# Sandwich-laminate sets for the airframe (study 20). 'glass' is the first closure used by studies
+# 01-16 (2 + 2 plies of 200 g/m2 E-glass on a 5 mm foam core); 'carbon' is the final airframe
+# (2 plies of 160-200 g/m2 carbon outside, 1 inside, same core, certified-trainer thicknesses).
+# Areal masses in kg/m2; fixed items in kg. Carbon also adds lightning protection, bonding and
+# glass antenna windows, and saves a little on the cowling. [A] typical light-composite practice.
+AIRFRAME = {
+    "glass": dict(skin_wing=2.05, skin_tail=1.55, skin_cabin=2.60, skin_cone=2.10, rib=2.0, ctrl=3.1,
+                  floor=9.0, bulkheads=7.5, seats=6.0, cowl_saving=0.0, lightning=0.0),
+    "carbon": dict(skin_wing=1.53, skin_tail=1.20, skin_cabin=2.00, skin_cone=1.60, rib=1.6, ctrl=2.5,
+                   floor=7.5, bulkheads=6.5, seats=5.0, cowl_saving=1.5, lightning=2.5),
+}
+
+
+def laminate(ac) -> dict:
+    """Laminate set of an aircraft (ac.airframe: 'glass' or 'carbon')."""
+    return AIRFRAME[getattr(ac, "airframe", "glass")]
 CAP_MIN = 40e-6                                     # m2 minimum cap area at the tip (handling, fittings)
 
 
@@ -93,6 +110,7 @@ class WingStructure:
 
 def wing_structure(ac: Aircraft, n_ult: float | None = None, iterations: int = 4) -> WingStructure:
     w = ac.wing
+    lam = laminate(ac)
     n = n_ult or 1.5 * ac.n_limit
     W = ac.weight
     half = w.span / 2
@@ -116,8 +134,8 @@ def wing_structure(ac: Aircraft, n_ult: float | None = None, iterations: int = 4
         tw = np.maximum(np.abs(V) / (h * MAT["cfrp_biax"]["tau"]), T_WEB_MIN)
         cap_lin = 2 * A * MAT["cfrp_ud"]["rho"]
         web_lin = tw * h * MAT["cfrp_biax"]["rho"]
-        skin_lin = MAT["skin_wing"] * 2.04 * c                 # upper + lower surface, arc length ~1.02 c each
-        rib_lin = 0.32 * c * tc * c / 0.45 * 2.0 * 1.0         # foam-sandwich ribs every 0.45 m, 2 kg/m2 [A]
+        skin_lin = lam["skin_wing"] * 2.04 * c                 # upper + lower surface, arc length ~1.02 c each
+        rib_lin = 0.32 * c * tc * c / 0.45 * lam["rib"] * 1.0  # foam-sandwich ribs every 0.45 m, 2 kg/m2 (glass) [A]
         m_lin = cap_lin + web_lin + skin_lin + rib_lin
     semi = lambda f: float(np.trapezoid(f, y))
     caps = 2 * semi(cap_lin)
@@ -129,7 +147,7 @@ def wing_structure(ac: Aircraft, n_ult: float | None = None, iterations: int = 4
     rear_spar = 0.35 * webs + 2 * semi(0.0012 * 0.5 * tc * c * MAT["cfrp_biax"]["rho"] * np.ones_like(y))
     fl = ac.flaps
     S_ctrl = 2 * semi(np.where(eta < 0.97, 0.26 * c, 0.0))      # flaps + ailerons ~26 % chord over the span
-    ctrl = 3.1 * S_ctrl                                         # kg/m2 incl. hinges, horns, mass balance [A]
+    ctrl = lam["ctrl"] * S_ctrl                                 # kg/m2 incl. hinges, horns, mass balance [A]
     fittings = 2.0 + 1.0e-5 * M[0] / h[0]                       # root lugs/pins sized by cap force, + misc
     sealing = 0.035 * ac.fuel_capacity_l                        # integral-tank sealing, baffles, sumps
     paint = MAT["paint"] * w.wetted_area(ac.fuselage.width)
@@ -147,7 +165,7 @@ def tail_mass(ac: Aircraft, surf, V_A: float, horizontal: bool = True) -> tuple:
     root_M = L_ult / (2 if horizontal else 1) * semi * 0.42   # elliptic-ish loading centroid
     h = 0.85 * surf.t_c_root * surf.c_root
     cap = 2 * (root_M / (h * MAT["cfrp_ud"]["sigma"])) * MAT["cfrp_ud"]["rho"] * semi * 0.5 * (2 if horizontal else 1)
-    skin = MAT["skin_tail"] * 2.04 * surf.area
+    skin = laminate(ac)["skin_tail"] * 2.04 * surf.area
     ribs_ctrl = 0.9 * surf.area                       # ribs, elevator/rudder spar, hinges, horns [A]
     paint = MAT["paint"] * 2.04 * surf.area
     return cap + skin + ribs_ctrl + paint, {"spar": cap, "skin": skin, "ribs+ctrl": ribs_ctrl, "paint": paint}
@@ -158,7 +176,8 @@ def fuselage_mass(ac: Aircraft, tail_load_N: float) -> dict:
     S = f.wetted_area
     x_cabin_end = ac.x_baggage + 0.45
     frac_cabin = min(0.62, x_cabin_end / f.length * 1.05)
-    shell = MAT["skin_cabin"] * S * frac_cabin + MAT["skin_cone"] * S * (1 - frac_cabin)
+    lam = laminate(ac)
+    shell = lam["skin_cabin"] * S * frac_cabin + lam["skin_cone"] * S * (1 - frac_cabin)
     # tail-cone bending check: thin-walled ellipse, CFRP longeron strips if the sandwich face is not enough
     arm = ac.htail.x_ac - x_cabin_end
     M = tail_load_N * arm
@@ -166,8 +185,8 @@ def fuselage_mass(ac: Aircraft, tail_load_N: float) -> dict:
     face_area = M / (0.5 * d * 250e6)                  # glass face allowable 250 MPa
     longerons = max(0.0, face_area - 2 * 0.0007 * 0.25) * 2 * arm * MAT["cfrp_ud"]["rho"]
     return {"Fuselage shell (sandwich)": shell, "Tail-cone longerons": longerons,
-            "Floor + keel + wing carry-through box": 9.0, "Bulkheads + firewall": 7.5,
-            "Seat structure (9 g crash loads)": 6.0, "Canopy (PC 3 mm) + frame": 9.5,
+            "Floor + keel + wing carry-through box": lam["floor"], "Bulkheads + firewall": lam["bulkheads"],
+            "Seat structure (9 g crash loads)": lam["seats"], "Canopy (PC 3 mm) + frame": 9.5,
             "Fuselage paint": MAT["paint"] * S}
 
 
@@ -190,6 +209,9 @@ def bottom_up(ac: Aircraft, extra: dict | None = None) -> MassModel:
     tail_load = 1.5 * 0.5 * isa.RHO0 * VA**2 * ac.htail.area
     for k, v in fuselage_mass(ac, tail_load).items():
         mm.add(k, "Fuselage", v, 0.12 if "shell" in k else 0.20, "area x sandwich density" if "shell" in k else "bottom-up allowance")
+    lam = laminate(ac)
+    if lam["lightning"]:
+        mm.add("Lightning protection, bonding, antenna windows", "Fuselage", lam["lightning"], 0.30, "carbon airframe [A]")
     # landing gear (main legs from the leaf-spring sizing at a fatigue-conscious 450 MPa)
     from .landing_gear import size_leaf, MATERIALS
     m_leaf = 2 * size_leaf(ac.weight, ac.wing_loading, "S-glass/epoxy UD").mass_per_leg_kg * (700 / 450) ** 2
@@ -202,6 +224,8 @@ def bottom_up(ac: Aircraft, extra: dict | None = None) -> MassModel:
     for k, v in powerplant_kg(eng).items():
         mm.add(k, "Powerplant", v, 0.03 if "data sheet" in k else 0.15, "data sheet" if "data sheet" in k else "allowance")
     mm.add("Exhaust + intake + airbox", "Powerplant", 4.0, 0.20, "allowance")
+    if lam["cowl_saving"]:
+        mm.add("Carbon cowling (saving)", "Powerplant", -lam["cowl_saving"], 0.20, "carbon airframe [A]")
     mm.add("Fuel system (pumps, lines, valves, gauging)", "Powerplant", 3.0 + 0.03 * ac.fuel_capacity_l, 0.20, "allowance")
     # systems & furnishings (catalogue-class, typical for a Rotax glass-cockpit trainer)
     for name, m, sp in (("Flight controls (dual sticks, pedals, pushrods, cables)", 9.5, 0.15),
