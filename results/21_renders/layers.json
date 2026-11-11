@@ -1,0 +1,123 @@
+{
+  "paint_order": [
+    "wing_far",
+    "tail_far",
+    "gear",
+    "fuselage",
+    "canopy",
+    "fin",
+    "tail_near",
+    "wing_near",
+    "prop"
+  ],
+  "layers": {
+    "wing_far": {
+      "width": 642,
+      "height": 211,
+      "assembled": [
+        169,
+        433
+      ],
+      "exploded": [
+        169,
+        603
+      ]
+    },
+    "tail_far": {
+      "width": 205,
+      "height": 38,
+      "assembled": [
+        1009,
+        411
+      ],
+      "exploded": [
+        1269,
+        361
+      ]
+    },
+    "gear": {
+      "width": 476,
+      "height": 220,
+      "assembled": [
+        498,
+        603
+      ],
+      "exploded": [
+        498,
+        833
+      ]
+    },
+    "fuselage": {
+      "width": 838,
+      "height": 256,
+      "assembled": [
+        386,
+        425
+      ],
+      "exploded": [
+        386,
+        425
+      ]
+    },
+    "canopy": {
+      "width": 301,
+      "height": 103,
+      "assembled": [
+        573,
+        403
+      ],
+      "exploded": [
+        573,
+        213
+      ]
+    },
+    "fin": {
+      "width": 318,
+      "height": 272,
+      "assembled": [
+        920,
+        227
+      ],
+      "exploded": [
+        1180,
+        177
+      ]
+    },
+    "tail_near": {
+      "width": 235,
+      "height": 40,
+      "assembled": [
+        1147,
+        426
+      ],
+      "exploded": [
+        1407,
+        376
+      ]
+    },
+    "wing_near": {
+      "width": 995,
+      "height": 125,
+      "assembled": [
+        755,
+        594
+      ],
+      "exploded": [
+        755,
+        764
+      ]
+    },
+    "prop": {
+      "width": 184,
+      "height": 275,
+      "assembled": [
+        299,
+        499
+      ],
+      "exploded": [
+        39,
+        499
+      ]
+    }
+  }
+}

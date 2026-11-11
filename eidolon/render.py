@@ -94,7 +94,8 @@ def rasterise(tris, view, eye, W, H, fov_deg=None, ortho_halfh=None, attrs=None)
 
 
 def render(parts: dict, colors: dict, eye, target, W=1600, H=1000, fov=26.0, ss=2, z_ground=-1.3,
-           bg_top="#f6f7f8", bg_bot="#e3e7ea", light_dir=(-0.35, -0.55, 0.76), extra_specular=None):
+           bg_top="#f6f7f8", bg_bot="#e3e7ea", light_dir=(-0.35, -0.55, 0.76), extra_specular=None,
+           ground=True, ground_col="#d9dde0", alpha=False):
     names = list(parts)
     tris = np.concatenate([parts[k] for k in names])
     pid = np.concatenate([np.full(len(parts[k]), i) for i, k in enumerate(names)])
@@ -118,7 +119,7 @@ def render(parts: dict, colors: dict, eye, target, W=1600, H=1000, fov=26.0, ss=
     px, py = np.meshgrid((np.arange(w) + 0.5 - w / 2) / (h / 2) / f_, -(np.arange(h) + 0.5 - h / 2) / (h / 2) / f_)
     dirs = np.stack([px, py, -np.ones_like(px)], -1) @ view            # camera -> world
     tg = (z_ground - e[2]) / np.where(np.abs(dirs[..., 2]) > 1e-9, dirs[..., 2], -1e-9)
-    gm = (~hit_ac) & (tg > 0)
+    gm = (~hit_ac) & (tg > 0) & ground
     Pg = e + dirs * tg[..., None]
     P = np.where(gm[..., None], Pg, P)
     N = np.where(gm[..., None], np.array([0, 0, 1.0]), N)
@@ -144,7 +145,7 @@ def render(parts: dict, colors: dict, eye, target, W=1600, H=1000, fov=26.0, ss=
         shadow += (dz > ref + 0.02)
     lit = 1 - shadow / 9
     # albedo
-    pal = np.array([_hex(colors.get(k, "#dddddd")) for k in names] + [_hex("#d9dde0")])
+    pal = np.array([_hex(colors.get(k, "#dddddd")) for k in names] + [_hex(ground_col)])
     pidp = np.where(gm, -2, pid_all[np.where(hit_ac, tid, 0)])
     A = np.where((pidp == -2)[..., None], pal[-1], pal[np.clip(pidp, 0, len(names) - 1)])
     spec_k = np.full((h, w), 0.35); shin = np.full((h, w), 60.0)
@@ -169,5 +170,12 @@ def render(parts: dict, colors: dict, eye, target, W=1600, H=1000, fov=26.0, ss=
     out = np.where(hit[..., None], col, bg)
     out = np.where(gm[..., None], out * (1 - fade) + bg * fade, out)
     out = np.clip(out, 0, 1) ** (1 / 1.12)
+    if alpha:
+        # transparent background: premultiplied average over the super-samples (study 21)
+        a = hit_ac.astype(float)
+        rgb = (out * a[..., None]).reshape(H, ss, W, ss, 3).sum(axis=(1, 3))
+        A = a.reshape(H, ss, W, ss).sum(axis=(1, 3))
+        rgb = rgb / np.maximum(A, 1e-9)[..., None]
+        return (np.dstack([rgb, A / (ss * ss)]) * 255).astype(np.uint8)
     out = out.reshape(H, ss, W, ss, 3).mean(axis=(1, 3))
     return (out * 255).astype(np.uint8)
