@@ -1,0 +1,80 @@
+{
+  "aircraft": {
+    "glass": {
+      "empty_kg": 530.3409093635793,
+      "useful_kg": 219.65909063642073,
+      "fuel_2x77_kg": 55.65909063642073,
+      "range_2x77_km": 802.514519823328,
+      "range_2x90_km": 334.1796093914403,
+      "f100": 7.841007973448624,
+      "cruise_kmh": 215.64000000000001,
+      "roc": 3.699827656953924,
+      "takeoff_m": 356.76347174138743,
+      "stall_kmh": 80.90565383381241,
+      "ld_max": 15.02771439364376,
+      "static_margin": 12.001103200760127,
+      "growth_to_lose_lead_kg": 4.95682155713439,
+      "groups": {
+        "Wing": 85.56942318737836,
+        "Tail": 15.66799747081128,
+        "Fuselage": 86.36117657383268,
+        "Landing gear": 29.84857252083934,
+        "Powerplant": 108.6,
+        "Systems & furnishings": 55.5,
+        "Class allowance": 148.79373961071767
+      }
+    },
+    "carbon": {
+      "empty_kg": 499.77541875581664,
+      "useful_kg": 250.22458124418336,
+      "fuel_2x77_kg": 72.0,
+      "range_2x77_km": 1097.5784331735624,
+      "range_2x90_km": 883.7877199705987,
+      "f100": 7.851987695321465,
+      "cruise_kmh": 215.28,
+      "roc": 3.697740042777871,
+      "takeoff_m": 356.79116084712507,
+      "stall_kmh": 80.90565383381241,
+      "ld_max": 15.01527926017521,
+      "static_margin": 11.99673261453812,
+      "growth_to_lose_lead_kg": 35.45473365113139,
+      "groups": {
+        "Wing": 71.20361189844007,
+        "Tail": 13.60161589389213,
+        "Fuselage": 73.72787883192743,
+        "Landing gear": 29.84857252083934,
+        "Powerplant": 107.1,
+        "Systems & furnishings": 55.5,
+        "Class allowance": 148.79373961071767
+      }
+    }
+  },
+  "hansa_range_km": 712.8506626545837,
+  "cost_efficiency": {
+    "Hansa-NG": {
+      "price_inr": 30000000.0,
+      "useful_kg": 210.0,
+      "range_km": 712.8506626545837,
+      "inr_lakh_per_kg_useful": 1.4285714285714286,
+      "inr_per_km_range": 42084.55090478984
+    },
+    "Eidolon, glass": {
+      "price_inr": 30930244.62661886,
+      "useful_kg": 219.65909063642073,
+      "range_km": 802.514519823328,
+      "inr_lakh_per_kg_useful": 1.4081021885779605,
+      "inr_per_km_range": 38541.66356196034
+    },
+    "Eidolon, carbon": {
+      "price_inr": 31893587.165239345,
+      "useful_kg": 250.22458124418336,
+      "range_km": 1097.5784331735624,
+      "inr_lakh_per_kg_useful": 1.2745984829570272,
+      "inr_per_km_range": 29058.139447056667
+    }
+  },
+  "carbon_span_check_f100": {
+    "11.5 m": 7.851987695321465,
+    "12.0 m": 7.816803935795473
+  }
+}

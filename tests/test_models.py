@@ -129,3 +129,26 @@ def test_elevator_effectiveness_monotonic():
     from eidolon.stability import elevator_tau
     taus = [elevator_tau(c) for c in (0.2, 0.3, 0.4, 0.5)]
     assert all(a < b for a, b in zip(taus, taus[1:])) and taus[-1] < 1
+
+
+def test_carbon_airframe_lighter_same_aerodynamics():
+    from eidolon.design import eidolon_v1, eidolon_final
+    from eidolon.engines import FUEL_DENSITY
+    from eidolon.model import V_CRUISE, CRUISE_ALT
+    g, c = eidolon_v1().model, eidolon_final().model
+    assert 25.0 < g.empty_kg - c.empty_kg < 40.0                      # skins, ribs, fuselage, cowling, + lightning mesh
+    assert c.fuel_kg == pytest.approx(c.ac.fuel_capacity_l * FUEL_DENSITY)   # tank full with 2 crew + bags
+    fg = g.plane.fuel_per_100km(g.W, V_CRUISE, CRUISE_ALT)[0]
+    fc = c.plane.fuel_per_100km(c.W, V_CRUISE, CRUISE_ALT)[0]
+    assert fc == pytest.approx(fg, rel=0.005)                         # same wing, same MTOW: same drag
+
+
+def test_cost_model_reproduces_hansa_price():
+    from eidolon import cost
+    k = cost.calibrate_labour(213.48)
+    _, usd = cost.eastlake(cost.HANSA_EMPTY_KG, 213.48, k)
+    assert usd * cost.INR_PER_USD == pytest.approx(cost.HANSA_PRICE_INR, rel=1e-6)
+    from eidolon.aircraft import eidolon
+    ac = eidolon(wing_area=13.25, span=11.5)
+    p = {proc: cost.unit_cost(ac, 228.6, 530.0, k, proc)["total_usd"] for proc in ("glass", "infusion", "prepreg")}
+    assert p["glass"] < p["infusion"] < p["prepreg"]
