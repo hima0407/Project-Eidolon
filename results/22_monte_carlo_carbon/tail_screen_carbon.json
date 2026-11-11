@@ -1,0 +1,89 @@
+{
+  "tdpf_required_x1e6": 200.0,
+  "results": {
+    "Conventional (low, fin above)": {
+      "Sh": 1.8687513426246256,
+      "f100": 7.820885278323586,
+      "range": 1102.6155077086244,
+      "v_rot": 86.30362333576308,
+      "v_lof": 94.44310698112822,
+      "TDPF": 0.00014838281420785808,
+      "alpha_wake": 14.56449686602465,
+      "alpha_stall": 13.25,
+      "deep_stall_risk": false,
+      "TDPF_x1e6": 148.38281420785808,
+      "rotates_before_liftoff": true,
+      "passes_spin_screen": false
+    },
+    "Conventional + ventral strake": {
+      "Sh": 1.8687426497506805,
+      "f100": 7.851987695321465,
+      "range": 1097.5784331735624,
+      "v_rot": 86.1816921917092,
+      "v_lof": 94.44310698112822,
+      "TDPF": 0.0004958260817359795,
+      "alpha_wake": 14.564412349241556,
+      "alpha_stall": 13.25,
+      "deep_stall_risk": false,
+      "TDPF_x1e6": 495.8260817359795,
+      "rotates_before_liftoff": true,
+      "passes_spin_screen": true
+    },
+    "Cruciform (HT at 40 % fin)": {
+      "Sh": 2.3400458509000233,
+      "f100": 7.89395946508573,
+      "range": 1090.8449436608166,
+      "v_rot": 92.03303611116849,
+      "v_lof": 94.44310698112822,
+      "TDPF": 0.00012324888760321156,
+      "alpha_wake": 23.58876349774248,
+      "alpha_stall": 13.25,
+      "deep_stall_risk": true,
+      "TDPF_x1e6": 123.24888760321156,
+      "rotates_before_liftoff": true,
+      "passes_spin_screen": false
+    },
+    "T-tail": {
+      "Sh": 2.974295713226797,
+      "f100": 7.971879407211039,
+      "range": 1078.6909142381107,
+      "v_rot": 108.83623383395371,
+      "v_lof": 94.44310698112822,
+      "TDPF": 6.191633143132258e-05,
+      "alpha_wake": 31.063198032982356,
+      "alpha_stall": 13.25,
+      "deep_stall_risk": true,
+      "TDPF_x1e6": 61.91633143132258,
+      "rotates_before_liftoff": false,
+      "passes_spin_screen": false
+    },
+    "H-tail (twin fins at HT tips)": {
+      "Sh": 1.5932355929564408,
+      "f100": 7.798614452180695,
+      "range": 1106.247363941004,
+      "v_rot": 81.0835081873727,
+      "v_lof": 94.44310698112822,
+      "TDPF": 0.00013245692927007878,
+      "alpha_wake": 14.453100871683057,
+      "alpha_stall": 13.25,
+      "deep_stall_risk": false,
+      "TDPF_x1e6": 132.45692927007877,
+      "rotates_before_liftoff": true,
+      "passes_spin_screen": false
+    },
+    "V-tail": {
+      "Sh": 1.7767522937187175,
+      "f100": 7.793237420419049,
+      "range": 1107.1273926341403,
+      "v_rot": 85.49371611733554,
+      "v_lof": 94.44310698112822,
+      "TDPF": NaN,
+      "alpha_wake": 14.528999427414142,
+      "alpha_stall": 13.25,
+      "deep_stall_risk": false,
+      "TDPF_x1e6": null,
+      "rotates_before_liftoff": true,
+      "passes_spin_screen": false
+    }
+  }
+}

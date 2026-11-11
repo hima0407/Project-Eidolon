@@ -1,0 +1,32 @@
+{
+  "N": 400,
+  "aircraft": "eidolon_final (carbon)",
+  "modelled_carbon_saving_kg": 30.565490607762626,
+  "fuel_burn_change_pct": {
+    "p05": -13.691134268826035,
+    "median": -9.168507035218864,
+    "p95": -4.160699154292476
+  },
+  "P(Eidolon burns less fuel)": 1.0,
+  "range_change_pct": {
+    "p05": 4.525093827955938,
+    "median": 23.964418852677593,
+    "p95": 92.79806317443884
+  },
+  "P(Eidolon flies further with 2 crew)": 0.975,
+  "neutral_priors": {
+    "fuel_burn_change_pct": {
+      "p05": -17.310289334424507,
+      "median": -12.360083300562625,
+      "p95": -8.525715377914509
+    },
+    "P(Eidolon burns less fuel)": 1.0,
+    "range_change_pct": {
+      "p05": 20.775655546519396,
+      "median": 45.360214606521765,
+      "p95": 146.2597071285248
+    },
+    "P(Eidolon flies further with 2 crew)": 1.0
+  },
+  "range_break_even_extra_empty_kg": 35.45473773522049
+}
