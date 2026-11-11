@@ -1,0 +1,80 @@
+{
+  "first closure (glass skins)": {
+    "root_shear_kN": 22.365734173232898,
+    "root_moment_kNm": 49.71564465601572,
+    "cap_force_kN": 287.9333632488989,
+    "root_spar_depth_mm": 172.66371668447437,
+    "root_cap_area_mm2": 523.5152059070889,
+    "root_web_mm": 1.079445767120066,
+    "cap_min_gauge_from_y_m": 4.375696202531645,
+    "web_min_gauge_span_fraction": 0.7,
+    "tip_deflection_limit_mm": 531.5170754226477,
+    "tip_deflection_pct_semispan": 9.2437752247417,
+    "extra_cap_kg_for_6pct": 4.293468491617609,
+    "tail_load_ult_kN": 5.255651635827826,
+    "V_A_kmh": 203.33110289852343,
+    "cone_moment_kNm": 16.536119079459905,
+    "cone_face_stress_MPa": 171.8038345917912,
+    "cone_margin": 0.4551479633385611,
+    "wing_items": {
+      "Wing spar caps (CFRP)": 7.941614065369456,
+      "Wing shear webs": 1.7044583905296364,
+      "Wing skins (sandwich)": 48.56578102911152,
+      "Wing ribs": 2.5585358034164187,
+      "Wing rear spar": 2.0025708987838673,
+      "Flaps + ailerons": 9.130142546596245,
+      "Wing root fittings": 4.879333632488989,
+      "Tank sealing": 3.5000000000000004,
+      "Wing paint": 5.2869868210822295
+    },
+    "groups": {
+      "Wing": 85.56942318737836,
+      "Tail": 15.66799747081128,
+      "Fuselage": 86.36117657383268,
+      "Landing gear": 29.84857252083934,
+      "Powerplant": 108.6,
+      "Systems & furnishings": 55.5,
+      "Class allowance": 148.79373961071767
+    },
+    "empty_kg": 530.3409093635793
+  },
+  "final (carbon skins)": {
+    "root_shear_kN": 22.77664531968842,
+    "root_moment_kNm": 50.69659335276134,
+    "cap_force_kN": 293.61463037080506,
+    "root_spar_depth_mm": 172.66371668447437,
+    "root_cap_area_mm2": 533.8447824923728,
+    "root_web_mm": 1.0992777249833008,
+    "cap_min_gauge_from_y_m": 4.375696202531645,
+    "web_min_gauge_span_fraction": 0.675,
+    "tip_deflection_limit_mm": 532.2804804887542,
+    "tip_deflection_pct_semispan": 9.25705183458703,
+    "extra_cap_kg_for_6pct": 4.396356166401988,
+    "tail_load_ult_kN": 5.477084997770789,
+    "V_A_kmh": 203.33110289852343,
+    "cone_moment_kNm": 17.17531357909091,
+    "cone_face_stress_MPa": 178.44481640613932,
+    "cone_margin": 0.4009933436844786,
+    "wing_items": {
+      "Wing spar caps (CFRP)": 8.098777157397155,
+      "Wing shear webs": 1.7179172174372899,
+      "Wing skins (sandwich)": 36.24665608514177,
+      "Wing ribs": 2.0468286427331344,
+      "Wing rear spar": 2.0072814882015457,
+      "Flaps + ailerons": 7.363018182738907,
+      "Wing root fittings": 4.936146303708051,
+      "Tank sealing": 3.5000000000000004,
+      "Wing paint": 5.2869868210822295
+    },
+    "groups": {
+      "Wing": 71.20361189844007,
+      "Tail": 13.60161589389213,
+      "Fuselage": 73.72787883192743,
+      "Landing gear": 29.84857252083934,
+      "Powerplant": 107.1,
+      "Systems & furnishings": 55.5,
+      "Class allowance": 148.79373961071767
+    },
+    "empty_kg": 499.77541875581664
+  }
+}
