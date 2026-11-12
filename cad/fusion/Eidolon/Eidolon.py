@@ -5,6 +5,11 @@ How to run (Fusion 360):
   2. Select "Eidolon" and press Run. A new design opens and about 25 bodies are lofted (1-3 minutes).
   3. File > Export > STEP to get cad/eidolon_v1.step for the repository.
 
+Bodies are grouped in two components: "Airframe" (the outer skin) and "Internals" (engine, firewall,
+battery, panel, seats and crew, baggage, spars, ribs, fuel tanks, carry-through box, pushrod, gear
+sensors, CG and neutral-point markers, all at the design model's stations). With XRAY = True the
+Airframe is made see-through; hide or show either group from the browser.
+
 Every body is a loft through closed sections. Each section is a fitted spline sketched on an offset
 construction plane, through the real airfoil coordinates (NACA 63-415 -> 63-412 wing, NACA 0012/0009
 tails), with twist, dihedral, taper and positions taken from the design closure. The JSON is regenerated
@@ -19,6 +24,8 @@ import adsk.core
 import adsk.fusion
 
 COLORS = {}
+XRAY = True          # make the Airframe group see-through so the Internals show
+XRAY_OPACITY = 0.22
 
 
 def _plane(comp, axis, offset_cm):
@@ -39,7 +46,7 @@ def _plane(comp, axis, offset_cm):
     raise RuntimeError("could not place construction plane")
 
 
-def _section(comp, axis, ring, closed_loop):
+def _section(comp, axis, ring, closed_loop, polyline=False):
     """Sketch one closed section and return its (largest) profile."""
     off = sum(p[{"x": 0, "y": 1, "z": 2}[axis]] for p in ring) / len(ring)
     cp = _plane(comp, axis, off)
@@ -49,7 +56,13 @@ def _section(comp, axis, ring, closed_loop):
     sk_pts = [sk.modelToSketchSpace(adsk.core.Point3D.create(*p)) for p in ring]
     for p in sk_pts:
         pts.add(p)
-    if closed_loop:
+    if polyline:                                     # straight-edged section (boxes, rods)
+        lines = sk.sketchCurves.sketchLines
+        first = prev = lines.addByTwoPoints(sk_pts[0], sk_pts[1])
+        for q in sk_pts[2:]:
+            prev = lines.addByTwoPoints(prev.endSketchPoint, q)
+        lines.addByTwoPoints(prev.endSketchPoint, first.startSketchPoint)
+    elif closed_loop:
         pts.add(sk_pts[0])
         spl = sk.sketchCurves.sketchFittedSplines.add(pts)
         try:
@@ -105,11 +118,23 @@ def _appearance(app, design, name, rgb, glossy=True):
     return ap
 
 
+GROUPS = {}
+
+
+def _group(root, name):
+    if name not in GROUPS:
+        occ = root.occurrences.addNewComponent(adsk.core.Matrix3D.create())
+        occ.component.name = name
+        GROUPS[name] = occ
+    return GROUPS[name]
+
+
 def build_part(app, design, root, part):
-    occ = root.occurrences.addNewComponent(adsk.core.Matrix3D.create())
+    parent = _group(root, part.get("group", "Airframe")).component
+    occ = parent.occurrences.addNewComponent(adsk.core.Matrix3D.create())
     comp = occ.component
     comp.name = part["name"]
-    profiles = [_section(comp, part["plane"], ring, part["closed_loop"]) for ring in part["rings"]]
+    profiles = [_section(comp, part["plane"], ring, part["closed_loop"], part.get("polyline", False)) for ring in part["rings"]]
     lofts = comp.features.loftFeatures
     li = lofts.createInput(adsk.fusion.FeatureOperations.NewBodyFeatureOperation)
     for pr in profiles:
@@ -167,9 +192,28 @@ def run(context):
                 failed.append(part["name"] + ": " + traceback.format_exc().strip().splitlines()[-1])
             adsk.doEvents()
         prog.hide()
+        xray_note = ""
+        if XRAY and "Airframe" in GROUPS:
+            done = False
+            try:
+                occ = GROUPS["Airframe"]
+                if hasattr(occ, "opacity"):
+                    occ.opacity = XRAY_OPACITY
+                    done = True
+                else:
+                    for o in occ.component.allOccurrences:
+                        for i in range(o.component.bRepBodies.count):
+                            b = o.component.bRepBodies.item(i)
+                            if hasattr(b, "opacity"):
+                                b.opacity = XRAY_OPACITY
+                                done = True
+            except Exception:
+                done = False
+            if not done:
+                xray_note = "\n\nFor the X-ray view: right-click Airframe in the browser > Opacity Control > 20 %."
         app.activeViewport.fit()
         msg = "Eidolon v1: %d bodies built from the design closure.\n" % len(ok)
-        msg += data.get("summary", "")
+        msg += data.get("summary", "") + xray_note
         if failed:
             msg += "\n\nCould not build:\n" + "\n".join(failed)
         ui.messageBox(msg)

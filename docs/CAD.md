@@ -43,6 +43,27 @@ Regenerate everything with `python3 run_all.py 16` (about 45 s).
 
 Control surfaces are separate bodies with their real chord ratios, so they can be deflected in Fusion with a joint.
 
+## Internal components (X-ray)
+
+`eidolon/internals.py` places the internal layout at the stations the design model uses, and study 16 writes it out with the skin:
+
+| Item | Where | Shape |
+|---|---|---|
+| Engine, firewall, battery, panel | 0.55 · 1.05 · 1.30 · 1.55 m | boxes; firewall is the real fuselage frame at 1.05 m |
+| Seats, crew (2 × 77 kg), sticks | 2.25 m, ±0.27 m | boxes, spherical heads |
+| Baggage | 2.95 m | box |
+| Main and rear spar | 30 % and 65 % chord, full span | chord slices of the real NACA 63-415 → 63-412 sections |
+| Ribs | every 0.5 m from 0.62 m | real airfoil sections, 12 mm thick |
+| Fuel tanks | between the spars, 0.65–1.55 m each side | airfoil-bounded, 2 × 50 L class |
+| Carry-through box | between the spars, across the cabin | airfoil-bounded |
+| Pushrod, gear sensors | stick to tail; on each main leg | rods / PVDF patches |
+| CG and neutral-point markers | CG range mid-point; neutral point | spheres |
+
+x-stations are the model's own; component sizes, tank span and the marker height are schematic.
+
+- **Fusion 360:** running the script now builds two groups in the browser, **Airframe** and **Internals**. The Airframe is set see-through (22 %) where the Fusion API allows it; otherwise right-click **Airframe → Opacity Control**. Hide either group with its eye icon.
+- **STL:** one file per item in `cad/generated/internals/`, plus `eidolon_v1_internals_all.stl`. Insert them next to `eidolon_v1_complete.stl` in any viewer or slicer; they share its coordinates.
+
 ## Building the solid model in Fusion 360
 
 1. In Fusion 360: **Utilities → Add-Ins → Scripts and Add-Ins** (Shift+S) → **Scripts** tab → green **+** → choose the folder `cad/fusion/Eidolon`.

@@ -17,6 +17,7 @@ from matplotlib.collections import PolyCollection
 from eidolon.design import eidolon_v1, hansa_closed, headline
 from eidolon.geometry3d import write_stl
 from eidolon.oml import build_oml, to_mesh, COLORS, livery_stripe
+from eidolon.internals import internal_parts, expand
 from eidolon.render import render
 
 OUT = style.out("16_geometry")
@@ -55,6 +56,19 @@ def main():
         fparts.append({"name": k, "plane": axis_map[p["plane"]], "rings": rings, "mirror": bool(p.get("mirror")),
                        "pattern": int(p.get("pattern", 0)),
                        "closed_loop": k in ("fuselage", "spinner", "main_wheel_fairing", "nose_wheel_fairing"),
+                       "color": "#" + hexc, "rgb": [int(hexc[i:i + 2], 16) for i in (0, 2, 4)]})
+    # ---- internal components: an "Internals" group in Fusion, and separate STLs (not in the renders)
+    ip = expand(internal_parts(ac, c.env, c.stab, parts))
+    imesh = to_mesh(ip)
+    IDIR = CAD / "internals"; IDIR.mkdir(exist_ok=True)
+    for k, t in imesh.items():
+        write_stl(IDIR / f"eidolon_v1_{k}.stl", t, k)
+    write_stl(IDIR / "eidolon_v1_internals_all.stl", np.concatenate(list(imesh.values())), "eidolon_v1_internals")
+    for k, p in ip.items():
+        rings = [_dedupe([[round(100 * x, 4), round(100 * z, 4), round(-100 * y, 4)] for x, y, z in r]) for r in p["rings"]]
+        hexc = p["color"].lstrip("#")
+        fparts.append({"name": k, "plane": axis_map[p["plane"]], "rings": rings, "mirror": bool(p.get("mirror")), "pattern": 0,
+                       "closed_loop": bool(p.get("closed_loop")), "polyline": bool(p.get("polyline")), "group": "Internals",
                        "color": "#" + hexc, "rgb": [int(hexc[i:i + 2], 16) for i in (0, 2, 4)]})
     summary = (f"Span {ac.wing.span:.2f} m, wing {ac.wing.area:.2f} m2, NACA 63-415 -> 63-412, "
                f"{ac.wing.twist_tip_deg:.0f} deg washout, drooped outboard LE, V_h {ac.vh:.2f}, ventral strake.")
