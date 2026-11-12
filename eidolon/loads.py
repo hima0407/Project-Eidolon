@@ -2,6 +2,8 @@
 
 CS-23.335 design speeds:  V_C >= 33 sqrt(W/S) [kt, W/S in lb/ft^2],  V_D >= 1.50 V_C,min (utility)
 CS-23.337 limit load factors (utility): n+ = 4.4, n- = -0.4 n+ = -1.76
+CS-23.333(b) manoeuvring envelope: n+ holds up to V_D; n- holds up to V_C, then varies linearly to
+          0 at V_D (normal category) or -1.0 at V_D (utility and aerobatic)
 CS-23.341 gust load factor:  n = 1 +/- K_g U_de V a / (2 W/S)   (EAS, rho0)
           K_g = 0.88 mu / (5.3 + mu),  mu = 2 (W/S) / (rho c a g)
           U_de = 15.24 m/s at V_C, 7.62 m/s at V_D
@@ -29,6 +31,7 @@ class VnResult:
     gust_c: float
     gust_d: float
     kg: float
+    n_neg_vd: float = 0.0
 
 
 def vn(W: float, S: float, mac: float, cl_alpha: float, cl_max: float, cl_min: float = -0.8,
@@ -43,4 +46,5 @@ def vn(W: float, S: float, mac: float, cl_alpha: float, cl_max: float, cl_min: f
     mu = 2 * ws / (isa.RHO0 * mac * cl_alpha * 9.80665)
     kg = 0.88 * mu / (5.3 + mu)
     g = lambda U, V: kg * isa.RHO0 * U * V * cl_alpha / (2 * ws)
-    return VnResult(VS1, VA, VC, VD, n_pos, -0.4 * n_pos, g(15.24, VC), g(7.62, VD), kg)
+    n_neg_vd = -1.0 if n_pos > 3.8 else 0.0      # utility/aerobatic vs normal, CS-23.333(b)
+    return VnResult(VS1, VA, VC, VD, n_pos, -0.4 * n_pos, g(15.24, VC), g(7.62, VD), kg, n_neg_vd)
