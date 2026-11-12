@@ -1,0 +1,208 @@
+{
+  "weights": {
+    "fuel_per_100km": 0.3,
+    "range_design_payload": 0.25,
+    "roc_hot_day": 0.15,
+    "takeoff_hot_day": 0.1,
+    "empty_mass": 0.1,
+    "tbo": 0.1
+  },
+  "hot_day": {
+    "h": 600.0,
+    "dT": 33.89999999999998
+  },
+  "range_requirement_km": 800.0,
+  "carbon_ranking": [
+    "912iSc",
+    "914",
+    "912ULS",
+    "915iS",
+    "UL520iS"
+  ],
+  "glass": {
+    "912ULS": {
+      "empty_mass": 524.0852624527736,
+      "fuel_kg": 61.91473754722642,
+      "fuel_per_100km": 9.11803771184834,
+      "range_design_payload": 766.6118526561852,
+      "cruise_75_kmh": 215.64000000000001,
+      "roc_sl": 3.7003400390380112,
+      "roc_hot_day": 2.6396740118557815,
+      "takeoff_sl": 356.75667972297333,
+      "takeoff_hot_day": 539.2532864058581,
+      "prop": "1.75 m / 3-blade",
+      "vh": 0.5000000000000001,
+      "score": 0.5981129437601869,
+      "meets_800km": false
+    },
+    "912iSc": {
+      "empty_mass": 530.3409093635793,
+      "fuel_kg": 55.65909063642073,
+      "fuel_per_100km": 7.841007973448624,
+      "range_design_payload": 802.514519823328,
+      "cruise_75_kmh": 215.64000000000001,
+      "roc_sl": 3.699827656953924,
+      "roc_hot_day": 2.6392202704194667,
+      "takeoff_sl": 356.76347174138743,
+      "takeoff_hot_day": 539.2714827042239,
+      "prop": "1.75 m / 3-blade",
+      "vh": 0.5000000000000001,
+      "score": 0.7380308231794726,
+      "meets_800km": true
+    },
+    "914": {
+      "empty_mass": 533.7193108032772,
+      "fuel_kg": 52.28068919672285,
+      "fuel_per_100km": 9.34299050457823,
+      "range_design_payload": 598.0855551353527,
+      "cruise_75_kmh": 227.52,
+      "roc_sl": 4.460691191721714,
+      "roc_hot_day": 4.10016724941481,
+      "takeoff_sl": 313.35539745848035,
+      "takeoff_hot_day": 397.49058924817314,
+      "prop": "1.75 m / 3-blade",
+      "vh": 0.5000000000000001,
+      "score": 0.6168047368333032,
+      "meets_800km": false
+    },
+    "915iS": {
+      "empty_mass": 551.7069822572817,
+      "fuel_kg": 34.29301774271835,
+      "fuel_per_100km": 10.22711033047744,
+      "range_design_payload": 283.76996702952465,
+      "cruise_75_kmh": 244.8,
+      "roc_sl": 5.750780189506533,
+      "roc_hot_day": 5.3419869785272756,
+      "takeoff_sl": 264.9875417321333,
+      "takeoff_hot_day": 331.27547999677904,
+      "prop": "1.75 m / 3-blade",
+      "vh": 0.5250000000000001,
+      "score": 0.3617342537228157,
+      "meets_800km": false
+    },
+    "UL520iS": {
+      "empty_mass": 576.3499002353576,
+      "fuel_kg": 9.650099764642391,
+      "fuel_per_100km": 10.56335527196341,
+      "range_design_payload": 0.0,
+      "cruise_75_kmh": 276.4800000000001,
+      "roc_sl": 8.422217740119537,
+      "roc_hot_day": 6.58965595134966,
+      "takeoff_sl": 224.42695427543504,
+      "takeoff_hot_day": 298.82610295834195,
+      "prop": "1.58 m / 3-blade",
+      "vh": 0.5250000000000001,
+      "score": 0.2875,
+      "meets_800km": false
+    }
+  },
+  "carbon": {
+    "912ULS": {
+      "empty_mass": 493.51156834203425,
+      "fuel_kg": 72.0,
+      "fuel_per_100km": 9.130742232397376,
+      "range_design_payload": 922.8165232249186,
+      "cruise_75_kmh": 215.28,
+      "roc_sl": 3.698263508116611,
+      "roc_hot_day": 2.637835133893239,
+      "takeoff_sl": 356.7842154150763,
+      "takeoff_hot_day": 539.3270649032736,
+      "prop": "1.75 m / 3-blade",
+      "vh": 0.5250000000000001,
+      "score": 0.5506726780281914,
+      "meets_800km": true
+    },
+    "912iSc": {
+      "empty_mass": 499.77541875581664,
+      "fuel_kg": 72.0,
+      "fuel_per_100km": 7.851987695321465,
+      "range_design_payload": 1097.5784331735624,
+      "cruise_75_kmh": 215.28,
+      "roc_sl": 3.697740042777871,
+      "roc_hot_day": 2.637371577648715,
+      "takeoff_sl": 356.79116084712507,
+      "takeoff_hot_day": 539.3456778674424,
+      "prop": "1.75 m / 3-blade",
+      "vh": 0.5250000000000001,
+      "score": 0.738008680241412,
+      "meets_800km": true
+    },
+    "914": {
+      "empty_mass": 503.1565574760574,
+      "fuel_kg": 72.0,
+      "fuel_per_100km": 9.356074728957688,
+      "range_design_payload": 896.9935005272204,
+      "cruise_75_kmh": 227.52,
+      "roc_sl": 4.458485924080655,
+      "roc_hot_day": 4.097978657276522,
+      "takeoff_sl": 313.3720606390274,
+      "takeoff_hot_day": 397.5145185689564,
+      "prop": "1.75 m / 3-blade",
+      "vh": 0.525,
+      "score": 0.613157943875048,
+      "meets_800km": true
+    },
+    "915iS": {
+      "empty_mass": 521.1033525261009,
+      "fuel_kg": 64.89664747389907,
+      "fuel_per_100km": 10.236451584219886,
+      "range_design_payload": 703.6905807205534,
+      "cruise_75_kmh": 244.8,
+      "roc_sl": 5.748166040952516,
+      "roc_hot_day": 5.339410988683382,
+      "takeoff_sl": 264.9948413142753,
+      "takeoff_hot_day": 331.28596086488494,
+      "prop": "1.75 m / 3-blade",
+      "vh": 0.5500000000000002,
+      "score": 0.39187108869518666,
+      "meets_800km": false
+    },
+    "UL520iS": {
+      "empty_mass": 545.7481072709234,
+      "fuel_kg": 40.251892729076644,
+      "fuel_per_100km": 10.572667213099333,
+      "range_design_payload": 348.7972128177827,
+      "cruise_75_kmh": 276.4800000000001,
+      "roc_sl": 8.418935933431248,
+      "roc_hot_day": 6.5868555656539165,
+      "takeoff_sl": 224.42706276685612,
+      "takeoff_hot_day": 298.8302189262147,
+      "prop": "1.58 m / 3-blade",
+      "vh": 0.5500000000000002,
+      "score": 0.2875,
+      "meets_800km": false
+    }
+  },
+  "six_cylinder_and_915_needs": {
+    "915iS": {
+      "empty_kg": 521.1033525261009,
+      "fuel_for_800km_kg": 72.00084424462148,
+      "fuel_for_800km_L": 100.00117256197427,
+      "mtow_needed_kg": 757.1041967707224,
+      "empty_reduction_needed_kg": 7.10419677072241
+    },
+    "UL520iS": {
+      "empty_kg": 545.7481072709234,
+      "fuel_for_800km_kg": 74.76444452399846,
+      "fuel_for_800km_L": 103.8395062833312,
+      "mtow_needed_kg": 784.5125517949218,
+      "empty_reduction_needed_kg": 34.51255179492182
+    }
+  },
+  "hot_day_912iSc_plus_boost_carbon": {
+    "label": "912 iSc + 30 kW boost",
+    "added_kg": 16.005761637125246,
+    "takeoff_hot_day": 399.43409445385714,
+    "roc_hot_day": 5.160358182397875,
+    "range_design_payload": 1065.176929204686,
+    "fuel_per_100km": 7.851987695321465,
+    "fuel_kg": 70.2188196070581
+  },
+  "range_two_90kg_crew_carbon_km": {
+    "912ULS": 836.667898244701,
+    "912iSc": 883.7897077737656,
+    "914": 666.2277194456778,
+    "915iS": 346.404073564418,
+    "UL520iS": 4.80315891907709
+  }
+}

@@ -20,6 +20,7 @@ D1-D10 were taken on the **first closure**, with glass-fibre sandwich skins (stu
 | [D11](#d11-structure-checked-at-66-g-tip-deflection-flagged) | Structure checked at 6.6 g; tip deflection flagged | 17 |
 | [D12](#d12-fuselage-length-710-m) | Fuselage body 7.10 m | 19 |
 | [D13](#d13-carbon-sandwich-airframe-for-the-final-aircraft) | Carbon sandwich airframe, vacuum infusion; cost calibrated on Hansa-NG | 18, 20 |
+| [D14](#d14-engine-re-checked-on-the-carbon-airframe-912-isc-stays) | Engine re-checked on the carbon airframe: 912 iSc stays; hot days via a boost option | 15, 23 |
 
 ---
 
@@ -360,5 +361,28 @@ Carbon buys payload, range and margin, not speed: the wing is still sized by sta
 
 **Caveats.** The 148.8 kg class allowance was measured on glass trainers and is left unchanged (if its structural part shrinks too, empty mass would be about 488 kg; not claimed). Cost is a class-level estimate, not a quote. Carbon needs lightning protection, galvanic isolation at aluminium fittings and white paint for the Indian ramp; impact damage can be invisible, which makes the PZT monitoring of D10 more valuable.
 
-**What would change it.** Supplier quotes, a real layup schedule and a first-article weighing; a carbon re-run of the Monte Carlo (study 14).
+**What would change it.** Supplier quotes, a real layup schedule and a first-article weighing. (The carbon re-run of the Monte Carlo is done: study 22, range better in 98 % of pessimistic samples.)
+
+
+## D14. Engine re-checked on the carbon airframe: 912 iSc stays
+
+**Question.** D8 chose the 912 iSc with glass skins, where a heavy engine eats the fuel. The carbon airframe (D13) frees about 30 kg. Does that now pay for a bigger engine, in particular the six-cylinder UL Power UL520iS, with the 100 L tank to fill?
+
+**How.** Study 23 re-closes all five engines again with carbon skins (tail, wing position, propeller, fuel) and scores them with the D8 weights.
+
+| Carbon airframe | Score | Range, 2 × 77 kg + 10 kg | L/100 km | Climb SL / 45 °C | Take-off 45 °C | Empty |
+|---|---|---|---|---|---|---|
+| **Rotax 912 iSc** | **0.74** | **1,098 km** | **7.85** | 3.70 / 2.64 m/s | 539 m | 500 kg |
+| Rotax 914 F | 0.61 | 897 km | 9.36 | 4.46 / 4.10 | 398 m | 503 kg |
+| Rotax 912 ULS | 0.55 | 923 km | 9.13 | 3.70 / 2.64 | 539 m | 494 kg |
+| Rotax 915 iS | 0.39 | 704 km | 10.24 | 5.75 / 5.34 | 331 m | 521 kg |
+| UL Power UL520iS (6-cyl) | 0.29 | 349 km | 10.57 | 8.42 / 6.59 | 299 m | 546 kg |
+
+**Why the six-cylinder still does not fit.** Carbon helps every engine equally, so the gap stays. At 750 kg the UL520iS airframe weighs 546 kg empty, leaving only 40 kg (56 L) of fuel with two 77 kg crew and bags: 349 km, under the 800 km requirement and half of Hansa-NG's 713 km. The **tank is never the limit, the weight is**: reaching 800 km would need 75 kg of fuel (104 L, more than the tank) and an MTOW of 785 kg, outside the 750 kg class this whole comparison is built on. With two 90 kg adults its range is 5 km. It also burns 35 % more fuel per kilometre. The 915 iS comes closest (704 km; 7 kg short of 800 km) but burns 30 % more.
+
+**What a bigger engine would buy, and the cheaper way to get it.** The only real gain is hot-day take-off and climb. Study 15's 30 kW electric boost on the 912 iSc gives a 45 °C, 600 m take-off of 399 m (914 F: 398 m) and 5.2 m/s climb (914 F: 4.1 m/s) for 16 kg. On the carbon airframe that mass comes out of spare useful load, so range only drops 1,098 → 1,065 km and fuel burn is unchanged.
+
+**Decision.** Keep the Rotax 912 iSc. Hot-and-high capability is offered as the hybrid-boost option (appendix), not by a bigger engine.
+
+**What would change it.** A move to a heavier class (MTOW near 800 kg, CS-23 normal), or a much lighter six-cylinder.
 
